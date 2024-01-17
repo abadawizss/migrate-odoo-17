@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_company_form_pyrax_inherit"
+        model="ir.ui.view">
+        <field name="name">pyrax.res.company.form.inherit</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form" />
+        <field name="arch" type="xml">
+            <!-- <field name="favicon" position="after">
+                <field name="stamp" widget='image' class="oe_avatar float-left" options='{"preview_image": "stamp"}'/>
+            </field> -->
+            <field name="color" position="after">
+                <field name="stamp" widget='image' class="oe_avatar float-left" options='{"preview_image": "stamp"}'/>
+            </field>
+            <field name="vat" position="after">
+                <field name="import_export_code"/>
+                <field name="iec_no" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_partner_bank_form_pyrax_inherit"
+        model="ir.ui.view">
+        <field name="name">pyrax.res.partner.bank.form.inherit</field>
+        <field name="model">res.partner.bank</field>
+        <field name="inherit_id" ref="base.view_partner_bank_form" />
+        <field name="arch" type="xml">
+            <field name="acc_holder_name" position="after">
+                <field name="ad_code"/>
+            </field>
+        </field>
+    </record>
+</odoo>

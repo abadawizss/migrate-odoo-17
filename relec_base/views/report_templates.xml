@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="pyrax_external_layout_boxed" inherit_id="web.external_layout_boxed">
+<!--        <xpath expr="//div[@class='footer']//div[@name='company_address']/span" position="replace">-->
+        <xpath expr="//div[@class='footer']" position="replace">
+            <strong><span t-field="company.partner_id"/></strong>
+            <t t-if="company.partner_id.street">
+                <br/><span t-field="company.partner_id.street"/>
+            </t>
+            <t t-if="company.partner_id.street2">
+                <br/><span t-field="company.partner_id.street2"/>
+            </t>
+            <t t-if="not company.partner_id.street2 and company.partner_id.city">
+                <br/><span t-field="company.partner_id.city"/>
+            </t>
+            <t t-elif="company.partner_id.city">
+                , <span t-field="company.partner_id.city"/>
+            </t>
+            <t t-if="company.partner_id.zip">
+                 - <span t-field="company.partner_id.zip"/>
+            </t>
+            <t t-if="company.partner_id.state_id">
+                <br/><span t-field="company.partner_id.state_id.name"/> (<span t-field="company.partner_id.state_id.code"/>)
+            </t>
+            <t t-if="not company.partner_id.state_id and company.partner_id.country_id">
+                <br/><span t-field="company.partner_id.country_id.name"/>
+            </t>
+            <t t-elif="company.partner_id.country_id">
+                <span t-field="company.partner_id.country_id.name"/>
+            </t>
+            <t t-if="company.partner_id.phone">
+                <br/><span t-field="company.partner_id.phone"/>
+            </t>
+            <t t-if="not company.partner_id.phone and company.partner_id.mobile">
+                <br/><span t-field="company.partner_id.mobile"/>
+            </t>
+            <t t-elif="company.partner_id.mobile">
+                , <span t-field="company.partner_id.mobile"/>
+            </t>
+        </xpath>
+        <xpath expr="//div[@class='footer']//ul[@class='list-inline']" position="replace"/>
+    </template>
+
+    <template id="pyrax_l10n_in_external_layout_boxed" inherit_id="l10n_in.l10n_in_external_layout_boxed">
+        <xpath expr="//div[@class='footer']//ul[@class='list-inline']" position="replace"/>
+    </template>
+</odoo>

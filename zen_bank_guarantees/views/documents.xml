@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="documents_bank_guarantee_kanban_inherited">
+            <field name="name">documents_bank_guarantee_kanban_inherited</field>
+            <field name="model">documents.document</field>
+            <field name="inherit_id" ref="documents.documents_view_list"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='url']" position="after">
+                    <field name="bank_guarantees_id" />
+                </xpath>
+            </field>
+        </record>
+
+</odoo>

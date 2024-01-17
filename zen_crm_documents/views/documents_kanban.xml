@@ -1,0 +1,15 @@
+<odoo>
+    <data>
+        <!-- Inherit the existing view and add a many2one field after owner_id -->
+        <record model="ir.ui.view" id="documents_kanban_inherited">
+            <field name="name">Documents Kanban Inherited</field>
+            <field name="model">documents.document</field>
+            <field name="inherit_id" ref="documents.document_view_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="lead_id" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

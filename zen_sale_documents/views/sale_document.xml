@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="documents_sale_order_kanban_inherited">
+            <field name="name">documents_sale_order_kanban_inherited</field>
+            <field name="model">documents.document</field>
+            <field name="inherit_id" ref="documents.documents_view_list"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='url']" position="before">
+                    <field name="sale_order_id" />
+                </xpath>
+            </field>
+    </record>
+
+    <record id="sale_order_view_form_inherit_document" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit.zen.sale.document</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_stock.view_order_form_inherit_sale_stock"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//button[@name='action_view_invoice']" position="after">
+                    <!-- Deprecated in Odoo 17-->
+                    <!-- <button type="object" name="action_view_document" class="oe_stat_button"
+                            icon="fa-file" attrs="{'invisible': [('document_count', '=', 0)]}">
+                        <field name="document_count" widget="statinfo" string="Documents"/>
+                    </button> -->
+                    <button type="object" name="action_view_document" class="oe_stat_button"
+                            icon="fa-file" invisible="document_count == 0">
+                        <field name="document_count" widget="statinfo" string="Documents"/>
+                    </button>
+
+                </xpath>
+            </field>
+        </record>
+</odoo>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="email_template_expired_bank_guarantees" model="mail.template">
+            <field name="name">Bank Guarantees: Send Reminder Bank Guarantees</field>
+            <field name="model_id" ref="zen_bank_guarantees.model_zen_bank_guarantees"/>
+            <field name="subject">Bank Guarantee Status Update : {{ object.bg_number }}</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                    Dear Sir/Madam <t t-out="ctx['customer_name'] or '-'"> Customer </t>,
+                        <br/>
+                        <br/>
+                    I trust this email finds you well. We would like to remind you that the Bank Guarantee with the following details is set to expire in <t t-out="ctx['interval'] or '-'"></t> days:
+                        <br/>
+
+                        <table style="table-layout: fixed; width: 80%; margin: auto;">
+                            <tr>
+                                <th style="padding: 5px;text-align: left; width: 25%;">Guarantee Number</th>
+                                <td style="padding: 5px;" t-out="object.bg_number or '-'">BG/00001</td>
+                            </tr>
+                            <tr>
+                                <th style="padding: 5px;text-align: left; width: 15%;">Issuing Bank</th>
+                                <td style="padding: 5px;" t-out="object.issuing_bank or '-'">BCA</td>
+                            </tr>
+                            <tr>
+                                <th style="padding: 5px;text-align: left; width: 15%;">Expiration Date</th>
+                                <td style="padding: 5px;" t-out="object.expiry_date or '-'" t-options="{'widget': 'date', 'date_format': 'dd-MM-yyyy'}">2023-12-10</td>
+                            </tr>
+                        </table>
+                        <br/>
+                    To ensure a seamless process and avoid any disruptions, we kindly request your prompt attention to this matter. Please initiate any necessary updates or extensions at your earliest convenience.
+                        <br/>
+                    Feel free to reply to this email or contact <strong><t t-out="ctx['sales_person_name'] or '-'"></t> <t t-out="ctx['sales_person_email'] or '-'"></t> <t t-out="ctx['sales_person_phone'] or ''"></t></strong> for further assistance.
+                        <br/>
+                    Thank you for your cooperation.
+                        <br/>
+                        <br/>
+                    Regards
+                        <br/>
+                    --                        <br/>
+                        <p t-out="object.sales_order_id.company_id.name or ''"></p>
+                    </p>
+                </div>
+            </field>
+        </record>
+
+
+
+
+    </data>
+</odoo>

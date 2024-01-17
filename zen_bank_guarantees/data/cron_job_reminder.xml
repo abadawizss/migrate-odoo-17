@@ -1,0 +1,15 @@
+<odoo>
+    <data>
+        <record id="ir_cron_reminder_expired_bank_guarantees" model="ir.cron">
+            <field name="name">Send Email Reminder for Expired Bank Guarantees</field>
+            <field name="model_id" ref="model_zen_bank_guarantees"/>
+            <field name="user_id" ref="base.user_admin"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="code">model.reminder_expired_document()</field>
+            <field name="nextcall" eval="(DateTime.now().replace(hour=6, minute=0, second=0) - timedelta(hours=7) + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')"/>
+        </record>
+    </data>
+</odoo>

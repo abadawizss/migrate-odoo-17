@@ -1,0 +1,127 @@
+<odoo>
+    <data>
+        <record id="view_form_zen_bank_guarantees" model="ir.ui.view">
+            <field name="name">zen.bank.guarantees.form</field>
+            <field name="model">zen.bank.guarantees</field>
+            <field name="arch" type="xml">
+                <form string="Zen Bank Guarantees">
+                    <header>
+                        <button string="Submit to Customer" name="action_submitted" invisible="state != 'submission'" type="object" class="oe_highlight"/>
+                        <button string="Renew / Replace" name="action_renew" invisible="state !='expired'" type="object" class="oe_highlight"/>
+                        <button string="Reset to draft" groups="zen_bank_guarantees.group_bank_guarantee_administrator" name="action_reset_to_draft" invisible="state != 'submitted'" type="object" class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="submission,submitted,expired" readonly="1"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button type="object" name="action_view_document" class="oe_stat_button" icon="fa-file" invisible="'document_count', '=', 0">
+                                <field name="document_count" widget="statinfo" string="Documents"/>
+                            </button>
+                            <button string ="Sale Order" type="object" name="action_view_sale_orders" class="oe_stat_button" icon="fa-money">
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="show_replace_number" invisible="1"/>
+                                <field name="bg_number" readonly="1" class="oe_inline"/>
+                                <span invisible="'show_replace_number', '=', False" > R.<field name="replace_number" readonly="1" class="oe_inline" />
+                                </span>
+                            </h1>
+                        </div>
+                        <group>
+                            <group name="customer_info" string="Customer Information">
+                                <field name="customer_id" readonly="state != 'submission'"  required="1"/>
+                                <field name="sales_order_id"  readonly="state != 'submission'" required="1" options="{'no_create': True, 'no_create_edit':True}"/>
+                            </group>
+                            <group name="purchase_info" string="PO Reference">
+                                <field name="po_number" readonly="state != 'submission'"/>
+                                <field name="po_date" readonly="state != 'submission'"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group name="guarantee_info" string="Guarantee Information">
+                                <field name="bg_reference_number" readonly="state != 'submission'"/>
+                                <field name="bg_amount" required="1" readonly="state != 'submission'"/>
+                                <field name="issuing_bank"  required="1" readonly="state != 'submission'"/>
+                                <field name="type"  required="1" readonly="state != 'submission'"/>
+                                <field name="date_of_issuance" string="BG Issue Date"  required="1" readonly="state != 'submission'"/>
+                                <field name="release_due_date" string="BG Release Due Date"  required="1" readonly="state != 'submission'"/>
+                                <field name="expiry_date" string="BG Expiry Date"  required="1" readonly="state != 'submission'"/>
+                            </group>
+                            <group name="config_info" string="Notification and Description">
+                                <field name="active_notification" readonly="state != 'submission'"/>
+                                <field name="description" string="Remarks" readonly="state != 'submission'"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="History">
+                                <field name="bank_guarantees_ids" options="{'no_open': True}" readonly="'id', '!=', False">
+                                    <tree editable="bottom" default_order="id desc" create="false" edit="false">
+                                        <field name="bank_guarantees_id" invisible="1"/>
+                                        <field name="bank_guarantee_number"/>
+                                        <field name="issue_date"/>
+                                        <field name="release_date"/>
+                                        <field name="bank_expiry_date"/>
+                                        <field name="state" string="Previous State"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_tree_zen_bank_guarantees" model="ir.ui.view">
+            <field name="name">zen.bank.guarantees.tree</field>
+            <field name="model">zen.bank.guarantees</field>
+            <field name="arch" type="xml">
+                <tree string="Zen Bank Guarantees">
+                    <field name="bg_number"/>
+                    <field name="customer_id"/>
+                    <field name="sales_order_id"/>
+                    <field name="issuing_bank"/>
+                    <field name="type"/>
+                    <field name="date_of_issuance"/>
+                    <field name="release_due_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_search_zen_bank_guarantees" model="ir.ui.view">
+            <field name="name">zen.bank.guarantees.search</field>
+            <field name="model">zen.bank.guarantees</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="bg_number"/>
+                    <field name="state"/>
+                    <field name="customer_id"/>
+                    <field name="sales_order_id"/>
+                    <field name="issuing_bank"/>
+                    <field name="type"/>
+                    <field name="date_of_issuance"/>
+                    <field name="release_due_date"/>
+                    <filter name="my_guarantees" string="My Guarantees" domain="[('create_uid','=',uid)]"/>
+                    <filter name="overdue_guarantees" string="Overdue Guarantees" domain="[('release_due_date','&lt;=',context_today().strftime('%Y-%m-%d'))]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Customer" name="customer" context="{'group_by':'customer_id'}"/>
+                        <filter string="Sales Order" name="sales_order" context="{'group_by':'sales_order_id'}"/>
+                        <filter string="Type" name="type" context="{'group_by':'type'}"/>
+                        <filter string="Issuer Bank" name="issuer_bank" context="{'group_by':'issuing_bank'}"/>
+                        <filter string="State" name="state" context="{'group_by':'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_zen_bank_guarantees" model="ir.actions.act_window">
+            <field name="name">Bank Guarantees</field>
+            <field name="res_model">zen.bank.guarantees</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

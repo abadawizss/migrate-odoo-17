@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- Define the new field in the CRM lead model -->
+        <!--    <record model="ir.ui.view" id="crm_lead_opportunity_sequence_form_view">-->
+        <!--      <field name="name">crm.lead.opportunity.sequence.form.view</field>-->
+        <!--      <field name="model">crm.lead</field>-->
+        <!--      <field name="inherit_id" ref="crm.crm_lead_view_form"/>-->
+        <!--      <field name="arch" type="xml">-->
+
+        <!--        <xpath expr="//div[@class='oe_title']" position="before">-->
+        <!--          <field name="opportunity_sequence" readonly="1"/>-->
+        <!--        </xpath>-->
+        <!--      </field>-->
+        <!--    </record>-->
+
+        <!-- Define the new sequence for CRM leads -->
+        <record id="sequence_crm_lead" model="ir.sequence">
+            <field name="name">CRM Lead Sequence</field>
+            <field name="code">crm.lead</field>
+            <field name="prefix">LEAD/</field>
+            <field name="padding">4</field>
+        </record>
+
+        <record model="ir.ui.view" id="documents_view_list_inherit">
+            <field name="name">documents.document.inherit</field>
+            <field name="model">documents.document</field>
+            <field name="inherit_id" ref="documents.documents_view_list"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="lead_id" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="action_show_relevant_documents" model="ir.actions.act_window">
+            <field name="name">Documents</field>
+            <field name="res_model">documents.document</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+            <field name="domain">[('sales_lead_id','=',active_id)]</field>
+            <field name="context">{'default_lead_id': active_id}</field>
+        </record>
+
+
+        <record model="ir.ui.view" id="crm_lead_form_inherit">
+            <field name="name">crm.lead.form.inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="sale_crm.crm_case_form_view_oppor"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_schedule_meeting']" position="before">
+                    <button type="object" name="show_relevant_documents" class="oe_stat_button"
+                            icon="fa-file">
+                        <field name="document_count" widget="statinfo" string="Documents"/>
+                    </button>
+                    <!--                    <button type="object" name="show_relevant_documents" icon="fa-files-o">-->
+                    <!--                        <field name="document_count" string="Documents"/>-->
+                    <!--                    </button>-->
+                </xpath>
+            </field>
+        </record>
+
+
+        <!-- Override the create method in the CRM lead model to generate the sequence number -->
+        <record model="ir.ui.view" id="crm_lead_opportunity_sequence_model_view">
+            <field name="name">crm.lead.opportunity.sequence.model.view</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[@name='lead']" position="after">
+                    <page name="related" string="Related Documents">
+                    </page>
+                </xpath>
+                <xpath expr="//form" position="attributes">
+                    <attribute name="create">true</attribute>
+                </xpath>
+
+                <xpath expr="//div[@class='oe_title']" position="before">
+                    <field name="opportunity_sequence" readonly="1"/>
+                </xpath>
+
+
+                <xpath expr="//field[@name='type']" position="after">
+                    <field name="opportunity_sequence" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_name']" position="after">
+                    <field name="opportunity_sequence" readonly="1"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_phone_update']" position="after">
+                    <field name="work_space" required="1"/>
+
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

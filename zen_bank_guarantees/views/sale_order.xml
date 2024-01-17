@@ -1,0 +1,56 @@
+<odoo>
+    <data>
+        <!-- Add Action for Zen Bank Guarantees -->
+        <record id="action_view_zen_bank_guarantees" model="ir.actions.act_window">
+            <field name="name">Bank Guarantees</field>
+            <field name="res_model">zen.bank.guarantees</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+            <field name="domain">[('sales_order_id','=',active_id)]</field>
+            <field name="context">{'default_sales_order_id': active_id}</field>
+        </record>
+
+        <!-- Inherit Sale Order Form View -->
+        <record id="sale_order_view_form_inherit_zen_bank_guarantees" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit.zen.bank.guarantees</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_stock.view_order_form_inherit_sale_stock"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//button[@name='action_view_invoice']" position="before">
+                    <button type="object" name="action_view_zen_bank_guarantees" class="oe_stat_button"
+                            icon="fa-bank" invisible="zen_bank_guarantees_ids == 0">
+                        <field name="zen_bank_guarantees_ids" widget="statinfo" string=" Bank Guarantees"/>
+                    </button>
+
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Define the view for the sale order form -->
+        <record id="sale_order_view_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/notebook/page[1]" position="after">
+                    <page string="Bank Guarantees">
+                        <field name="zen_bank_guarantees_line">
+                            <tree editable="bottom">
+                                <field name="customer_id"/>
+                                <field name="issuing_bank"/>
+                                <field name="type"/>
+                                <field name="date_of_issuance"/>
+                                <field name="release_due_date"/>
+                                <field name="sales_order_id" invisible="1"/>
+                            </tree>
+                        </field>
+                    </page>
+
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

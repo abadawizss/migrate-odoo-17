@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="zen_bank_guarantees_wizard_renew_view_form" model="ir.ui.view">
+        <field name="name">zen_bank_guarantees_wizard_renew_view_form</field>
+        <field name="model">zen.bank.guarantees.renew.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Set Renew">
+                <sheet>
+                    <group>
+                        <group string="Customer Information">
+                            <field name="bank_guarantees_id" string="BG Previous Number" invisible="1" readonly="1" force_save="1"/>
+                            <field name="bank_guarantee_number" string="BG Number" readonly="1" force_save="1"/>
+                            <field name="customer_id" readonly="1" force_save="1"/>
+                            <field name="sales_order_id" readonly="1" force_save="1"/>
+                        </group>
+                        <group string="PO Reference">
+                            <field name="po_number" readonly="1"/>
+                            <field name="po_date" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Guarantee Information">
+                        <field name="bg_reference_number" />
+                        <field name="bg_amount" />
+                        <field name="issuing_bank" />
+                        <field name="type" />
+                        <field name="issue_date" required="1"/>
+                        <field name="release_date" required="1"/>
+                        <field name="expiry_date" required="1"/>
+                        <field name="description" string="Remarks"/>
+                    </group>
+                    <field name="state" invisible="1"/>
+                    <field name="bank_guarantees_id" invisible="1"/>
+                    <field name="replace_number" invisible="1" force_save="1"/>
+                    
+                </sheet>
+                <footer>
+                    <button string="Submit" name="set_renew" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

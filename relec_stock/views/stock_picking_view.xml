@@ -12,11 +12,11 @@
             <xpath expr="//page[@name='extra']/group" position="inside">
                 <group string="Additional Information" name="additional_infos">
                     <field name="exporter_ref" readonly="state == ['done', 'cancel']"/>
-                    <field name="pre_carrier_receipt_place" readonly="state == ['done, cancel']"/>
+                    <field name="pre_carrier_receipt_place" readonly="state == ['done', 'cancel']"/>
                 </group>
                 <group string="Port">
-                    <field name="port_loading" readonly="state == ['done, cancel']"/>
-                    <field name="port_discharge" readonly="state == ['done, cancel']"/>
+                    <field name="port_loading" readonly="state == ['done', 'cancel']"/>
+                    <field name="port_discharge" readonly="state == ['done', 'cancel']"/>
                 </group>
             </xpath>
             <field name="note" position="before">

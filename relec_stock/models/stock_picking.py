@@ -8,12 +8,10 @@ class StockPicking(models.Model):
     partner_shipping_id = fields.Many2one('res.partner', 'Consignee')
     exporter_ref = fields.Char("Exporter's Ref")
     delivery_payment_terms = fields.Text(string="Terms of Delivery & Payment")
-    pre_carrier_receipt_place = fields.Char(
-        string="Place of Receipt by Pre Carrier")
+    pre_carrier_receipt_place = fields.Char(string="Place of Receipt by Pre Carrier")
     port_loading = fields.Char(string="Port of Loading")
     port_discharge = fields.Char(string="Port of Discharge")
-    total_volume = fields.Float(string='Total Volume', store=True, readonly=True,
-                                )
+    total_volume = fields.Float(string='Total Volume', store=True, readonly=True)
                                 # compute='_compute_total_volume')
 #     shipping_gross_weight = fields.Float(string="Shipping Gross Weight")
 

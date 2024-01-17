@@ -23,7 +23,7 @@
                                     <t
                                         t-if="o.partner_shipping_id.ref">
                                         (Customer Ref:
-                                        <span t-field="o.partner_shipping_id.ref" />
+                                        <span t-field="o.partner_shipping_id.ref"/>
                                         )
                                     </t>
                                 </td>
@@ -34,7 +34,7 @@
                                         <t t-if="o.partner_id.ref">
                                             (Customer Ref:
                                             <span
-                                                t-field="o.partner_id.ref" />
+                                                t-field="o.partner_id.ref"/>
                                             )
                                         </t>
                                     </t>
@@ -44,25 +44,25 @@
                                 <td>
                                     <address
                                         t-field="o.company_id.partner_id"
-                                        t-options='{"widget": "contact", "fields": ["address", "name", "phone", "mobile"], "no_marker": True, "phone_icons": True}' />
+                                        t-options='{"widget": "contact", "fields": ["address", "name", "phone", "mobile"], "no_marker": True, "phone_icons": True}'/>
                                     <div t-if="o.company_id.vat">
                                         GSTIN:
-                                        <span t-field="o.company_id.vat" />
+                                        <span t-field="o.company_id.vat"/>
                                     </div>
                                     <div t-if="o.company_id.iec_no">
                                         IEC No.:
-                                        <span t-field="o.company_id.iec_no" />
+                                        <span t-field="o.company_id.iec_no"/>
                                     </div>
                                 </td>
                                 <td>
                                     <address
                                         t-field="o.partner_shipping_id"
-                                        t-options='{"widget": "contact", "fields": ["address", "name", "phone", "mobile"], "no_marker": True, "phone_icons": True}' />
+                                        t-options='{"widget": "contact", "fields": ["address", "name", "phone", "mobile"], "no_marker": True, "phone_icons": True}'/>
                                     <div
                                         t-if="o.partner_shipping_id.vat"
                                         style="padding-top: 0px !important;">
                                         GSTIN:
-                                        <span t-field="o.partner_shipping_id.vat" />
+                                        <span t-field="o.partner_shipping_id.vat"/>
                                     </div>
                                 </td>
                                 <td>
@@ -70,11 +70,11 @@
                                         t-if="o.partner_id.id != o.partner_shipping_id.id">
                                         <address
                                             t-field="o.partner_id"
-                                            t-options='{"widget": "contact", "fields": ["address", "name", "phone", "mobile"], "no_marker": True, "phone_icons": True}' />
+                                            t-options='{"widget": "contact", "fields": ["address", "name", "phone", "mobile"], "no_marker": True, "phone_icons": True}'/>
                                         <div t-if="o.partner_id.vat"
                                             style="padding-top: 0px !important;">
                                             GSTIN:
-                                            <span t-field="o.partner_id.vat" />
+                                            <span t-field="o.partner_id.vat"/>
                                         </div>
                                     </t>
                                     <t t-else="">
@@ -86,7 +86,7 @@
 
                         <div class="page">
                             <h1 t-field="o.name"
-                                class="mt0 float-left ml-1" />
+                                class="mt0 float-left ml-1"/>
 
                             <!-- Information -->
                             <div class="row mt16 mb16">
@@ -94,13 +94,13 @@
                                     name="div_exporter_ref">
                                     <strong>Exporter's Ref.:</strong>
                                     <p t-if="o.exporter_ref"
-                                        t-field="o.exporter_ref" />
+                                        t-field="o.exporter_ref"/>
                                 </div>
                                 <div class="col-auto"
                                     name="div_origin_country">
                                     <strong>Country of Origin:</strong>
                                     <p t-if="o.company_id"
-                                        t-field="o.company_id.country_id" />
+                                        t-field="o.company_id.country_id"/>
                                 </div>
                                 <div class="col-auto"
                                     name="div_dest_country">
@@ -108,7 +108,7 @@
                                     </strong>
                                     <p
                                         t-if="o.partner_id and o.partner_id.country_id"
-                                        t-field="o.partner_id.country_id" />
+                                        t-field="o.partner_id.country_id"/>
                                 </div>
                             </div>
                             <div class="row mt16 mb16">
@@ -116,7 +116,7 @@
                                     name="div_o.carrier">
                                     <strong>Transport by:</strong>
                                     <p t-if="o.carrier_id"
-                                        t-field="o.carrier_id" />
+                                        t-field="o.carrier_id"/>
                                 </div>
                                 <div class="col-auto"
                                     name="div_pre_carrier_receipt_place">
@@ -124,29 +124,29 @@
                                         Carrier:</strong>
                                     <p
                                         t-if="o.pre_carrier_receipt_place"
-                                        t-field="o.pre_carrier_receipt_place" />
+                                        t-field="o.pre_carrier_receipt_place"/>
                                 </div>
                                 <div class="col-auto"
                                     name="div_port_loading">
                                     <strong>Port of Loading:</strong>
                                     <p t-if="o.port_loading"
-                                        t-field="o.port_loading" />
+                                        t-field="o.port_loading"/>
                                 </div>
                                 <div class="col-auto"
                                     name="div_port_discharge">
                                     <strong>Port of Discharge:</strong>
                                     <p t-if="o.port_discharge"
-                                        t-field="o.port_discharge" />
+                                        t-field="o.port_discharge"/>
                                 </div>
                                 <div class="col-auto"
                                     name="div_final_destination">
                                     <strong>Final Destination:</strong>
                                     <p t-if="o.partner_id.country_id"
-                                        t-field="o.partner_id.country_id" />
+                                        t-field="o.partner_id.country_id"/>
                                 </div>
                             </div>
 
-                            <t t-set="total_gross_weight" t-value="0" />
+                            <t t-set="total_gross_weight" t-value="0"/>
                             <!-- Lines -->
                             <table class="table table-sm"
                                 t-if="o.move_line_ids and o.move_ids_without_package">
@@ -192,62 +192,62 @@
                                                     <t
                                                         t-if="ml.result_package_id">
                                                         <span
-                                                            t-field="ml.result_package_id" />
+                                                            t-field="ml.result_package_id"/>
                                                     </t>
                                                 </td>
                                                 <td>
                                                     <t
                                                         t-if="ml.product_id.free_sale_certificate">
                                                         <span
-                                                            t-field="ml.product_id.free_sale_certificate" />
+                                                            t-field="ml.product_id.free_sale_certificate"/>
                                                         -
                                                     </t>
                                                     <span
-                                                        t-field="ml.product_id.name" />
-                                                    <br />
+                                                        t-field="ml.product_id.name"/>
+                                                    <br/>
                                                 </td>
                                                 <td>
                                                     <span
                                                         t-if="o.state != 'done'"
-                                                        t-field="ml.product_uom_qty" />
+                                                        t-field="ml.product_uom_qty"/>
                                                     <span
                                                         t-if="o.state == 'done'"
-                                                        t-field="ml.qty_done" />
+                                                        t-field="ml.qty_done"/>
                                                     <span
                                                         t-field="ml.product_uom_id"
-                                                        groups="uom.group_uom" />
+                                                        groups="uom.group_uom"/>
 
                                                 </td>
                                                 <td
                                                     class="text-right">
                                                     <span
                                                         t-if="o.state != 'done'"
-                                                        t-esc="'{0:.2f}'.format(ml.product_uom_qty * ml.product_id.weight)" />
+                                                        t-esc="'{0:.2f}'.format(ml.product_uom_qty * ml.product_id.weight)"/>
                                                     <span
                                                         t-if="o.state == 'done'"
-                                                        t-esc="'{0:.2f}'.format(ml.qty_done * ml.product_id.weight)" />
+                                                        t-esc="'{0:.2f}'.format(ml.qty_done * ml.product_id.weight)"/>
                                                 </td>
                                                 <td
                                                     class="text-right">
                                                     <span
                                                         t-if="o.state != 'done'"
-                                                        t-esc="'{0:.2f}'.format(ml.product_uom_qty * ml.product_id.gross_weight)" />
+                                                        t-esc="'{0:.2f}'.format(ml.product_uom_qty * ml.product_id.gross_weight)"/>
                                                     <span
                                                         t-if="o.state == 'done'"
-                                                        t-esc="'{0:.2f}'.format(ml.qty_done * ml.product_id.gross_weight)" />
+                                                        t-esc="'{0:.2f}'.format(ml.qty_done * ml.product_id.gross_weight)"/>
                                                 </td>
                                                 <td
                                                     class="text-right">
                                                     <t
                                                         t-if="ml.result_package_id and ml.result_package_id.packaging_id">
                                                         <span
-                                                            t-field="ml.result_package_id.packaging_id.height" />
+                                                            t-field="ml.result_package_id.packaging_id.height"/>
                                                         x
                                                         <span
-                                                            t-field="ml.result_package_id.packaging_id.width" />
+                                                            t-field="ml.result_package_id.packaging_id.width"/>
                                                         x
                                                         <span
-                                                            t-field="ml.result_package_id.packaging_id.length" />
+                                                            t-field="ml.result_package_id.packaging_id.length"/>
                                                     </t>
                                                 </td>
                                             </tr>
@@ -262,38 +262,34 @@
                                         </td>
                                         <td class="text-center">
                                             <strong>
-                                                <span
-                                                    t-esc="sum([ml.quantity_done for ml in o.move_ids_without_package])" />
-                                                <span
-                                                    t-esc="o.move_ids_without_package.mapped('product_uom').name" />
+                                                <span t-esc="sum([ml.quantity_done for ml in o.move_ids_without_package])"/>
+                                                <span t-esc="o.move_ids_without_package.mapped('product_uom').name"/>
                                             </strong>
                                         </td>
                                         <td class="text-right">
                                             <strong>
                                                 <span
-                                                    t-field="o.weight" />
+                                                    t-field="o.weight"/>
                                             </strong>
                                         </td>
                                         <td class="text-right">
                                             <strong>
-                                                <span
-                                                    t-esc="sum([float('{0:.2f}'.format(ml.quantity_done * ml.product_id.gross_weight)) for ml in o.move_ids_without_package])" />
+                                                <span t-esc="sum([float('{0:.2f}'.format(ml.quantity_done * ml.product_id.gross_weight)) for ml in o.move_ids_without_package])"/>
                                             </strong>
                                         </td>
                                         <td class="text-right">
                                             <strong>
-                                                <span
-                                                    t-esc="o.total_volume * 1000000" />
+                                                <span t-esc="o.total_volume * 1000000"/>
                                             </strong>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                             <t t-set="no_reserved_product"
-                                t-value="o.move_lines.filtered(lambda x: x.product_uom_qty != x.reserved_availability and x.move_line_ids and x.state!='done')" />
+                                t-value="o.move_lines.filtered(lambda x: x.product_uom_qty != x.reserved_availability and x.move_line_ids and x.state!='done')"/>
                             <p
                                 t-if="o.state in ['draft', 'waiting', 'confirmed'] or no_reserved_product">
-                                <i class="fa fa-exclamation-triangle" />
+                                <i class="fa fa-exclamation-triangle"/>
                                 All products could not be reserved.
                                 Click on the "Check Availability" button
                                 to try to reserve products.
@@ -301,32 +297,30 @@
                             <p>
                                 <strong>
                                     Total No. of Carton:
-                                    <span
-                                        t-esc="len(o.package_ids.ids)" />
+                                    <span t-esc="len(o.package_ids.ids)"/>
                                 </strong>
                             </p>
                             <p>
                                 <strong>
                                     Total Volume (in CBM):
-                                    <span t-field="o.total_volume" />
+                                    <span t-field="o.total_volume"/>
                                     CBM
                                 </strong>
                             </p>
                             <p>
                                 <strong>
                                     NET WEIGHT:
-                                    <span t-field="o.weight" />
-                                    <span
-                                        t-field="o.weight_uom_name" />
+                                    <span t-field="o.weight"/>
+                                    <span t-field="o.weight_uom_name"/>
                                 </strong>
                             </p>
                             <p>
                                 <strong>
                                     GROSS WEIGHT:
                                     <span
-                                        t-field="o.shipping_weight" />
+                                        t-field="o.shipping_weight"/>
                                     <span
-                                        t-field="o.weight_uom_name" />
+                                        t-field="o.weight_uom_name"/>
                                 </strong>
                             </p>
 
@@ -337,7 +331,7 @@
                             </t>
 
                             <strong>Declaration:</strong>
-                            <p t-field="o.note" />
+                            <p t-field="o.note"/>
                         </div>
                     </t>
                 </t>

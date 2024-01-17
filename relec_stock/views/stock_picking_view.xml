@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_picking_form_inherit_pyrax" model="ir.ui.view">
+        <field name="name">stock.picking.form.inherit</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form" />
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="partner_shipping_id" readonly="state == ['done, cancel']"/>
+            </field>
+            <xpath expr="//page[@name='extra']/group" position="inside">
+                <group string="Additional Information" name="additional_infos">
+                    <field name="exporter_ref" readonly="state == ['done', 'cancel']"/>
+                    <field name="pre_carrier_receipt_place" readonly="state == ['done, cancel']"/>
+                </group>
+                <group string="Port">
+                    <field name="port_loading" readonly="state == ['done, cancel']"/>
+                    <field name="port_discharge" readonly="state == ['done, cancel']"/>
+                </group>
+            </xpath>
+            <field name="note" position="before">
+                <field name="delivery_payment_terms" string="Terms of Delivery &amp; Payment"
+                    placeholder="Add a Terms of Delivery &amp; Payment note that will be printed on the Picking Slip report" readonly="state == ['done, cancel']"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- <record id="view_picking_withcarrier_out_form_inherit_pyrax"
+        model="ir.ui.view">
+        <field name="name">delivery.stock.picking_withcarrier.form.view.pyrax
+        </field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="delivery.view_picking_withcarrier_out_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='carrier_data']" position="inside">
+                <label for="shipping_gross_weight" string="Gross Weight" />
+                <div>
+                    <field name="shipping_gross_weight" class="oe_inline" />
+                    <field name="weight_uom_name" nolabel="1"
+                        class="oe_inline" style="margin-left:5px" />
+                </div>
+            </xpath>
+        </field>
+    </record> -->
+
+</odoo>

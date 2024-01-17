@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <template id="report_delivery_document_pyrax" inherit_id="stock.report_delivery_document">
+        <xpath expr="//table[@name='stock_move_table']" position="before">
+            <p>
+                Following Items, as ordered are being sent for favour of
+                comparing and confirmation within 3 days from the
+                receipt of consignment after which no claim regarding
+                any deviation will be entertained.
+            </p>
+        </xpath>
+        <xpath expr="//div[hasclass('page')]" position="inside">
+            <div class="table-bordered">
+                <div class="row">
+                    <div class="col-6 pull-left ml-1">
+                        <strong>Checked By</strong>
+                        <br/><br/>
+                    </div>
+                    <div class="col-6 pull-right">
+                        <strong>Packed By</strong>
+                        <br/><br/>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+</odoo>

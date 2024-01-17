@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="report_picking_list">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+                        <!-- <div class="row justify-content-end mb16"> -->
+                        <!-- <div class="col-4" name="right_box"> -->
+                        <!-- <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' 
+                            % ('Code128', o.name, 600, 100)" style="width:300px;height:50px;" alt="Barcode"/> -->
+                        <!-- </div> -->
+                        <!-- </div> -->
+                        <!-- Addresses -->
+                        <table class="table table-sm">
+                            <tr>
+                                <td width="33.33%">
+                                    <strong>Consignor: </strong>
+                                </td>
+                                <td width="33.33%">
+                                    <strong>Consignee: </strong>
+                                    <t
+                                        t-if="o.partner_shipping_id.ref">
+                                        (Customer Ref:
+                                        <span t-field="o.partner_shipping_id.ref" />
+                                        )
+                                    </t>
+                                </td>
+                                <td width="33.33%">
+                                    <strong>Buyer: </strong>
+                                    <t
+                                        t-if="o.partner_id.id != o.partner_shipping_id.id">
+                                        <t t-if="o.partner_id.ref">
+                                            (Customer Ref:
+                                            <span
+                                                t-field="o.partner_id.ref" />
+                                            )
+                                        </t>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <address
+                                        t-field="o.company_id.partner_id"
+                                        t-options='{"widget": "contact", "fields": ["address", "name", "phone", "mobile"], "no_marker": True, "phone_icons": True}' />
+                                    <div t-if="o.company_id.vat">
+                                        GSTIN:
+                                        <span t-field="o.company_id.vat" />
+                                    </div>
+                                    <div t-if="o.company_id.iec_no">
+                                        IEC No.:
+                                        <span t-field="o.company_id.iec_no" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <address
+                                        t-field="o.partner_shipping_id"
+                                        t-options='{"widget": "contact", "fields": ["address", "name", "phone", "mobile"], "no_marker": True, "phone_icons": True}' />
+                                    <div
+                                        t-if="o.partner_shipping_id.vat"
+                                        style="padding-top: 0px !important;">
+                                        GSTIN:
+                                        <span t-field="o.partner_shipping_id.vat" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <t
+                                        t-if="o.partner_id.id != o.partner_shipping_id.id">
+                                        <address
+                                            t-field="o.partner_id"
+                                            t-options='{"widget": "contact", "fields": ["address", "name", "phone", "mobile"], "no_marker": True, "phone_icons": True}' />
+                                        <div t-if="o.partner_id.vat"
+                                            style="padding-top: 0px !important;">
+                                            GSTIN:
+                                            <span t-field="o.partner_id.vat" />
+                                        </div>
+                                    </t>
+                                    <t t-else="">
+                                        Same As Consignee
+                                    </t>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <div class="page">
+                            <h1 t-field="o.name"
+                                class="mt0 float-left ml-1" />
+
+                            <!-- Information -->
+                            <div class="row mt16 mb16">
+                                <div class="col-auto"
+                                    name="div_exporter_ref">
+                                    <strong>Exporter's Ref.:</strong>
+                                    <p t-if="o.exporter_ref"
+                                        t-field="o.exporter_ref" />
+                                </div>
+                                <div class="col-auto"
+                                    name="div_origin_country">
+                                    <strong>Country of Origin:</strong>
+                                    <p t-if="o.company_id"
+                                        t-field="o.company_id.country_id" />
+                                </div>
+                                <div class="col-auto"
+                                    name="div_dest_country">
+                                    <strong>Country of Destination:
+                                    </strong>
+                                    <p
+                                        t-if="o.partner_id and o.partner_id.country_id"
+                                        t-field="o.partner_id.country_id" />
+                                </div>
+                            </div>
+                            <div class="row mt16 mb16">
+                                <div class="col-auto"
+                                    name="div_o.carrier">
+                                    <strong>Transport by:</strong>
+                                    <p t-if="o.carrier_id"
+                                        t-field="o.carrier_id" />
+                                </div>
+                                <div class="col-auto"
+                                    name="div_pre_carrier_receipt_place">
+                                    <strong>Place of Receipt by Pre
+                                        Carrier:</strong>
+                                    <p
+                                        t-if="o.pre_carrier_receipt_place"
+                                        t-field="o.pre_carrier_receipt_place" />
+                                </div>
+                                <div class="col-auto"
+                                    name="div_port_loading">
+                                    <strong>Port of Loading:</strong>
+                                    <p t-if="o.port_loading"
+                                        t-field="o.port_loading" />
+                                </div>
+                                <div class="col-auto"
+                                    name="div_port_discharge">
+                                    <strong>Port of Discharge:</strong>
+                                    <p t-if="o.port_discharge"
+                                        t-field="o.port_discharge" />
+                                </div>
+                                <div class="col-auto"
+                                    name="div_final_destination">
+                                    <strong>Final Destination:</strong>
+                                    <p t-if="o.partner_id.country_id"
+                                        t-field="o.partner_id.country_id" />
+                                </div>
+                            </div>
+
+                            <t t-set="total_gross_weight" t-value="0" />
+                            <!-- Lines -->
+                            <table class="table table-sm"
+                                t-if="o.move_line_ids and o.move_ids_without_package">
+                                <thead>
+                                    <tr>
+                                        <th name="th_package">
+                                            <strong>No. &amp; Kind of
+                                                Packages</strong>
+                                        </th>
+                                        <th name="th_product">
+                                            <strong>Description of Goods
+                                            </strong>
+                                        </th>
+                                        <th>
+                                            <strong>Quantity</strong>
+                                        </th>
+                                        <th name="th_net_weight">
+                                            <strong>Net Weight (Kg)
+                                            </strong>
+                                        </th>
+                                        <th name="th_net_weight">
+                                            <strong>Gross Weight (Kg)
+                                            </strong>
+                                        </th>
+                                        <th>
+                                            <strong>
+                                                Dimensions (cm
+                                                <sup>3</sup>
+                                                )
+                                            </strong>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t
+                                        t-foreach="o.move_ids_without_package.sorted(key=lambda m: m.product_id.id)"
+                                        t-as="move">
+                                        <t
+                                            t-foreach="move.move_line_ids.sorted(key=lambda ml: ml.location_id.id)"
+                                            t-as="ml">
+                                            <tr>
+                                                <td>
+                                                    <t
+                                                        t-if="ml.result_package_id">
+                                                        <span
+                                                            t-field="ml.result_package_id" />
+                                                    </t>
+                                                </td>
+                                                <td>
+                                                    <t
+                                                        t-if="ml.product_id.free_sale_certificate">
+                                                        <span
+                                                            t-field="ml.product_id.free_sale_certificate" />
+                                                        -
+                                                    </t>
+                                                    <span
+                                                        t-field="ml.product_id.name" />
+                                                    <br />
+                                                </td>
+                                                <td>
+                                                    <span
+                                                        t-if="o.state != 'done'"
+                                                        t-field="ml.product_uom_qty" />
+                                                    <span
+                                                        t-if="o.state == 'done'"
+                                                        t-field="ml.qty_done" />
+                                                    <span
+                                                        t-field="ml.product_uom_id"
+                                                        groups="uom.group_uom" />
+
+                                                </td>
+                                                <td
+                                                    class="text-right">
+                                                    <span
+                                                        t-if="o.state != 'done'"
+                                                        t-esc="'{0:.2f}'.format(ml.product_uom_qty * ml.product_id.weight)" />
+                                                    <span
+                                                        t-if="o.state == 'done'"
+                                                        t-esc="'{0:.2f}'.format(ml.qty_done * ml.product_id.weight)" />
+                                                </td>
+                                                <td
+                                                    class="text-right">
+                                                    <span
+                                                        t-if="o.state != 'done'"
+                                                        t-esc="'{0:.2f}'.format(ml.product_uom_qty * ml.product_id.gross_weight)" />
+                                                    <span
+                                                        t-if="o.state == 'done'"
+                                                        t-esc="'{0:.2f}'.format(ml.qty_done * ml.product_id.gross_weight)" />
+                                                </td>
+                                                <td
+                                                    class="text-right">
+                                                    <t
+                                                        t-if="ml.result_package_id and ml.result_package_id.packaging_id">
+                                                        <span
+                                                            t-field="ml.result_package_id.packaging_id.height" />
+                                                        x
+                                                        <span
+                                                            t-field="ml.result_package_id.packaging_id.width" />
+                                                        x
+                                                        <span
+                                                            t-field="ml.result_package_id.packaging_id.length" />
+                                                    </t>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                </tbody>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-center"
+                                            colspan="2">
+                                            <strong>Total</strong>
+                                        </td>
+                                        <td class="text-center">
+                                            <strong>
+                                                <span
+                                                    t-esc="sum([ml.quantity_done for ml in o.move_ids_without_package])" />
+                                                <span
+                                                    t-esc="o.move_ids_without_package.mapped('product_uom').name" />
+                                            </strong>
+                                        </td>
+                                        <td class="text-right">
+                                            <strong>
+                                                <span
+                                                    t-field="o.weight" />
+                                            </strong>
+                                        </td>
+                                        <td class="text-right">
+                                            <strong>
+                                                <span
+                                                    t-esc="sum([float('{0:.2f}'.format(ml.quantity_done * ml.product_id.gross_weight)) for ml in o.move_ids_without_package])" />
+                                            </strong>
+                                        </td>
+                                        <td class="text-right">
+                                            <strong>
+                                                <span
+                                                    t-esc="o.total_volume * 1000000" />
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <t t-set="no_reserved_product"
+                                t-value="o.move_lines.filtered(lambda x: x.product_uom_qty != x.reserved_availability and x.move_line_ids and x.state!='done')" />
+                            <p
+                                t-if="o.state in ['draft', 'waiting', 'confirmed'] or no_reserved_product">
+                                <i class="fa fa-exclamation-triangle" />
+                                All products could not be reserved.
+                                Click on the "Check Availability" button
+                                to try to reserve products.
+                            </p>
+                            <p>
+                                <strong>
+                                    Total No. of Carton:
+                                    <span
+                                        t-esc="len(o.package_ids.ids)" />
+                                </strong>
+                            </p>
+                            <p>
+                                <strong>
+                                    Total Volume (in CBM):
+                                    <span t-field="o.total_volume" />
+                                    CBM
+                                </strong>
+                            </p>
+                            <p>
+                                <strong>
+                                    NET WEIGHT:
+                                    <span t-field="o.weight" />
+                                    <span
+                                        t-field="o.weight_uom_name" />
+                                </strong>
+                            </p>
+                            <p>
+                                <strong>
+                                    GROSS WEIGHT:
+                                    <span
+                                        t-field="o.shipping_weight" />
+                                    <span
+                                        t-field="o.weight_uom_name" />
+                                </strong>
+                            </p>
+
+                            <t t-if="o.delivery_payment_terms">
+                                <strong>Terms of Delivery &amp; Payment:
+                                </strong>
+                                <p t-field="o.delivery_payment_terms"></p>
+                            </t>
+
+                            <strong>Declaration:</strong>
+                            <p t-field="o.note" />
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

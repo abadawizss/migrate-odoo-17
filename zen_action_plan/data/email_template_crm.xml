@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="email_template_crm_to_customer_reminder_1" model="mail.template">
+            <field name="name">CRM: Send Reminder 1st to customer</field>
+            <field name="model_id" ref="crm.model_crm_lead"/>
+            <field name="subject">{{ object.company_id.name }} - We’re working on the quote for your requirement : {{ object.name }}</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                    Dear Sir,
+                        <br/>
+                        <br/>
+                    We are working on your valuable Enquiry. In case, you would like to reach us, please feel free contact the following:
+                        <br/>
+
+                        <table style="table-layout: fixed; width: 80%; margin: auto;">
+                            <tr>
+                                <th style="padding: 5px;text-align: left; width: 15%;">Name</th>
+                                <td style="padding: 5px;" t-out="ctx['sales_person_name'] or '-'">Administrator</td>
+                            </tr>
+                            <tr>
+                                <th style="padding: 5px;text-align: left; width: 15%;">Phone</th>
+                                <td style="padding: 5px;" t-out="ctx['sales_person_phone'] or '-'">+621</td>
+                            </tr>
+                            <tr>
+                                <th style="padding: 5px;text-align: left; width: 15%;">Email</th>
+                                <td style="padding: 5px;" t-out="ctx['sales_person_email'] or '-'">zensoftware@us</td>
+                            </tr>
+                        </table>
+                        <br/>
+                    or <br/>
+                    If having difficulty reaching the above contact, you may follow the Escalation matrix given below:
+                    <br/><br/>
+                    <t t-if="ctx.get('user_escalation_one')">
+                        <strong>Escalation Level 1:</strong>
+                        <ul>
+                            <t t-foreach="ctx['user_escalation_one']" t-as="user_one">
+                                <li>
+                                    <t t-esc="user_one['name']"/>  |
+                                    <t t-esc="user_one['email']"/> |
+                                    <t t-esc="user_one['phone']"/>
+                                </li>
+                            </t>
+                        </ul>
+                    </t>
+                    <br/>
+                    <t t-if="ctx.get('user_escalation_two')">
+                        <strong>Escalation Level 2:</strong>
+                        <ul>
+                            <t t-foreach="ctx['user_escalation_two']" t-as="user_two">
+                                <li>
+                                    <t t-esc="user_two['name']"/>  | 
+                                    <t t-esc="user_two['email']"/> |
+                                    <t t-esc="user_two['phone']"/>
+                                </li>
+                            </t>
+                        </ul>
+                    </t>
+
+                    <br/>
+                    <br/>
+                    Regards
+                    <br/>
+                    --                    <br/>
+                    <p t-out="object.company_id.name or ''"></p>
+                </p>
+            </div>
+        </field>
+    </record>
+
+    <record id="email_template_crm_to_sales_person_reminder_1" model="mail.template">
+        <field name="name">CRM: Send Reminder 1st to Sales Person</field>
+        <field name="model_id" ref="crm.model_crm_lead"/>
+        <field name="subject">{{ object.company_id.name }} - Action Required - 1st Reminder : {{ object.name }}</field>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                    Dear <t t-out="ctx['sales_person_name'] or ''"></t>,
+                    <br/>
+                    <br/>
+                    It's already late. This opportunity requires an action. Please expedite.
+                    <br/><br/>
+                    Customer Contact Details:
+                    <br/>
+
+                    <table style="table-layout: fixed; width: 80%; margin: auto;">
+                        <tr>
+                            <th style="padding: 5px;text-align: left; width: 15%;">Name</th>
+                            <td style="padding: 5px;" t-out="object.partner_id.name or '-'">Zen Software Solutions</td>
+                        </tr>
+                        <tr>
+                            <th style="padding: 5px;text-align: left; width: 15%;">Phone</th>
+                            <td style="padding: 5px;" t-out="object.phone or '-'">+621</td>
+                        </tr>
+                        <tr>
+                            <th style="padding: 5px;text-align: left; width: 15%;">Email</th>
+                            <td style="padding: 5px;" t-out="object.email_from or '-'">zensoftware@us</td>
+                        </tr>
+                    </table>
+
+                    <br/>
+                    <br/>
+                    Regards,
+                    <br/>
+                    --                    <br/>
+                    <p t-out="object.company_id.name or ''"></p>
+
+                </p>
+            </div>
+        </field>
+    </record>
+
+    <record id="email_template_crm_to_sales_person_reminder_2" model="mail.template">
+        <field name="name">CRM: Send Reminder 2nd to Sales Person</field>
+        <field name="model_id" ref="crm.model_crm_lead"/>
+        <field name="subject">{{ object.company_id.name }} - Action Required - 2nd Reminder : {{ object.name }}</field>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                    Dear <t t-out="ctx['sales_person_name'] or ''"></t>,
+                    <br/>
+                    <br/>
+                    It's already late. This opportunity requires an action. Please expedite.
+                    <br/><br/>
+                    Customer Contact Details:
+                    <br/>
+
+                    <table style="table-layout: fixed; width: 80%; margin: auto;">
+                        <tr>
+                            <th style="padding: 5px;text-align: left; width: 15%;">Name</th>
+                            <td style="padding: 5px;" t-out="object.partner_id.name or '-'">Zen Software Solutions</td>
+                        </tr>
+                        <tr>
+                            <th style="padding: 5px;text-align: left; width: 15%;">Phone</th>
+                            <td style="padding: 5px;" t-out="object.phone or '-'">+621</td>
+                        </tr>
+                        <tr>
+                            <th style="padding: 5px;text-align: left; width: 15%;">Email</th>
+                            <td style="padding: 5px;" t-out="object.email_from or '-'">zensoftware@us</td>
+                        </tr>
+                    </table>
+
+                    <br/>
+                    <br/>
+                    Regards
+                    <br/>
+                    --                    <br/>
+                    <p t-out="object.company_id.name or ''"></p>
+
+                </p>
+            </div>
+        </field>
+    </record>
+
+    <record id="email_template_crm_to_escalation_user_1" model="mail.template">
+        <field name="name">CRM: Send Escalation 1st to Sales Person</field>
+        <field name="model_id" ref="crm.model_crm_lead"/>
+        <field name="subject">{{ object.company_id.name }} - 1st Escalation: No Action Taken on Opportunity : {{ object.name }}</field>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                    Dear Recipient,
+                    <br/>
+                    <br/>
+                    This is 1st Escalation!
+                    <br/><br/>
+                    No action has been taken on this lead by assigned salesperson. Please follow up with Sales team. 
+                    <br/><br/>
+                    Here are the Salesperson details: 
+                    <br/>
+
+                    <table style="table-layout: fixed; width: 80%; margin: auto;">
+                        <tr>
+                            <th style="padding: 5px;text-align: left; width: 15%;">Name</th>
+                            <td style="padding: 5px;" t-out="ctx['sales_person_name'] or '-'">+621</td>
+                        </tr>
+                        <tr>
+                            <th style="padding: 5px;text-align: left; width: 15%;">Phone</th>
+                            <td style="padding: 5px;" t-out="ctx['sales_person_phone'] or '-'">+621</td>
+                        </tr>
+                        <tr>
+                            <th style="padding: 5px;text-align: left; width: 15%;">Email</th>
+                            <td style="padding: 5px;" t-out="ctx['sales_person_email'] or '-'">+621</td>
+                        </tr>
+                    </table>
+                    <br/>
+                    and given below are the details of the Customer:
+                    <br/>
+                    <table style="table-layout: fixed; width: 80%; margin: auto;">
+                        <tr>
+                            <th style="padding: 5px;text-align: left; width: 15%;">Name</th>
+                            <td style="padding: 5px;" t-out="object.partner_id.name or ''">Zen Software Solutions</td>
+                        </tr>
+                        <tr>
+                            <th style="padding: 5px;text-align: left; width: 15%;">Phone</th>
+                            <td style="padding: 5px;" t-out="object.phone or ''">+621</td>
+                        </tr>
+                        <tr>
+                            <th style="padding: 5px;text-align: left; width: 15%;">Email</th>
+                            <td style="padding: 5px;" t-out="object.email_from or ''">zensoftware@us</td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <br/>
+                    Regards
+                    <br/>
+                    --                    <br/>
+                    <p t-out="object.company_id.name or ''"></p>
+
+                </p>
+            </div>
+        </field>
+    </record>
+
+    <record id="email_template_crm_to_escalation_user_2" model="mail.template">
+        <field name="name">CRM: Send Escalation 2nd to Sales Person</field>
+        <field name="model_id" ref="crm.model_crm_lead"/>
+        <field name="subject">{{ object.company_id.name }} - 2nd Escalation: No Action Taken on Opportunity : {{ object.name }}</field>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                    Dear Recipient,
+                    <br/>
+                    <br/>This is 2nd Escalation!
+                    <br/><br/>
+                    No action has been taken on this lead by assigned salesperson. Please follow up with Sales team. 
+                    <br/><br/>
+                    Here are the Salesperson details: 
+                    <br/>
+
+                    <table style="table-layout: fixed; width: 80%; margin: auto;">
+                        <tr>
+                            <th style="padding: 5px;text-align: left; width: 15%;">Name</th>
+                            <td style="padding: 5px;" t-out="ctx['sales_person_name'] or '-'">+621</td>
+                        </tr>
+                        <tr>
+                            <th style="padding: 5px;text-align: left; width: 15%;">Phone</th>
+                            <td style="padding: 5px;" t-out="ctx['sales_person_phone'] or '-'">+621</td>
+                        </tr>
+                        <tr>
+                            <th style="padding: 5px;text-align: left; width: 15%;">Email</th>
+                            <td style="padding: 5px;" t-out="ctx['sales_person_email'] or '-'">+621</td>
+                        </tr>
+                    </table>
+                    <br/>
+                    and Here are the details of the Customer:
+                    <br/>
+                    <table style="table-layout: fixed; width: 80%; margin: auto;">
+                        <tr>
+                            <th style="padding: 5px;text-align: left; width: 15%;">Name</th>
+                            <td style="padding: 5px;" t-out="object.partner_id.name or ''">Zen Software Solutions</td>
+                        </tr>
+                        <tr>
+                            <th style="padding: 5px;text-align: left; width: 15%;">Phone</th>
+                            <td style="padding: 5px;" t-out="object.phone or ''">+621</td>
+                        </tr>
+                        <tr>
+                            <th style="padding: 5px;text-align: left; width: 15%;">Email</th>
+                            <td style="padding: 5px;" t-out="object.email_from or ''">zensoftware@us</td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <br/>
+                    Regards
+                    <br/>
+                    --                    <br/>
+                    <p t-out="object.company_id.name or ''"></p>
+
+                </p>
+            </div>
+        </field>
+    </record>
+</data>
+</odoo>

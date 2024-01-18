@@ -1,0 +1,26 @@
+<odoo>
+    <data>
+        <record id="ir_cron_reminder_for_customer_and_sales_person_crm" model="ir.cron">
+            <field name="name">Send Email Reminder for Customer and Sales Person CRM</field>
+            <field name="model_id" ref="model_crm_lead"/>
+            <field name="user_id" ref="base.user_admin"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="code">model.send_email_for_customer_and_sales_person()</field>
+            <field name="nextcall" eval="(DateTime.now().replace(hour=6, minute=0, second=0) - timedelta(hours=7) + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')"/>
+        </record>
+        <record id="ir_cron_reminder_for_customer_and_sales_person_sales_order" model="ir.cron">
+            <field name="name">Send Email Reminder for Customer and Sales Person Sales Order</field>
+            <field name="model_id" ref="model_sale_order"/>
+            <field name="user_id" ref="base.user_admin"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="code">model.send_email_for_customer_and_sales_person()</field>
+            <field name="nextcall" eval="(DateTime.now().replace(hour=6, minute=0, second=0) - timedelta(hours=7) + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')"/>
+        </record>
+    </data>
+</odoo>

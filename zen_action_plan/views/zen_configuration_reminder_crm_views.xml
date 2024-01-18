@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Configuration Reminder CRM-->
+    <record id="res_config_settings_view_form_crm" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.crm</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="5"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form//app[@data-string='CRM']" position="inside">
+                <block title="Action Plan">
+                    <setting>
+                        <field name="activate_reminder_crm"/>
+                        <div class="text-muted">
+                            <span>Reminder Email Notification Opportunity </span><br />
+                            <div class="mt8" invisible="not activate_reminder_crm">
+                                <label for="interval_number_reminder_1_crm" string="1st Reminder to Salesperson and Information to Customer"/>
+                                <div>
+                                    <field name="interval_number_reminder_1_crm" class="oe_inline"/>
+                                    <field name="interval_type_reminder_1_crm" class="oe_inline"/>
+                                </div>
+                                <br/>
+                                <label for="interval_number_reminder_2_crm" string="2nd Reminder to Salesperson"/>
+                                <div>
+                                    <field name="interval_number_reminder_2_crm" class="oe_inline"/>
+                                    <field name="interval_type_reminder_2_crm" class="oe_inline"/>
+                                </div>
+                                <br/>
+                                <label for="interval_number_escalation_1_crm" string="1st Escalation Recipients and Information to Customer"/>
+                                <div>
+                                    <field name="interval_number_escalation_1_crm" class="oe_inline"/>
+                                    <field name="interval_type_escalation_1_crm" class="oe_inline"/>
+                                </div>
+                                <br/>
+                                <label for="escalation_users_ids_crm_1" string="1st Escalation Recipients Users"/>
+                                <div>
+                                    <field name="escalation_users_ids_crm_1" widget="many2many_tags"/>
+                                    <field name="escalation_users_list_crm_1" invisible="1"/>
+                                </div>
+                                <br/>
+                                <label for="interval_number_escalation_2_crm" string="2nd Escalation Recipients"/>
+                                <div>
+                                    <field name="interval_number_escalation_2_crm" class="oe_inline"/>
+                                    <field name="interval_type_escalation_2_crm" class="oe_inline"/>
+                                </div>
+                                <br/>
+                                <label for="escalation_users_ids_crm_2" string="2nd Escalation Recipients Users"/>
+                                <div>
+                                    <field name="escalation_users_ids_crm_2" widget="many2many_tags"/>
+                                    <field name="escalation_users_list_crm_2" invisible="1"/>
+                                </div>
+                            </div>
+                        </div>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+    <!-- End Configuration Reminder CRM-->
+
+</odoo>

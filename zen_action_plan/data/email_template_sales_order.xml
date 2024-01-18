@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+        <record id="email_template_sales_order_to_customer_reminder_1" model="mail.template">
+            <field name="name">Sales: Send Reminder 1st to customer</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="subject">{{ object.company_id.name }} {{ object.state in ('draft', 'sent') and (ctx.get('proforma') and 'Proforma' or 'Quotation') or 'Order' }} (Ref {{ object.name or 'n/a' }})</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        <t t-set="doc_name" t-value="'quotation' if object.state in ('draft', 'sent') else 'order'"/>
+                            Dear Sir,
+                        <br/>
+                        <br/>
+                            Good Morning!
+                        <br/>
+                            Kindly let us know your valuable status on our offer.
+                        <br/>
+                            Should you have any questions or concerns regarding technical/commercial matters, please do not hesitate and feel free to contact us.
+                        <br/>
+                        Contact Sales Person Details :
+                        <table style="table-layout: fixed; width: 80%; margin: auto;">
+                            <tr>
+                                <th style="padding: 5px;text-align: left; width: 15%;">Name</th>
+                                <td style="padding: 5px;" t-out="ctx['sales_person_name'] or '-'">Administrator</td>
+                            </tr>
+                            <tr>
+                                <th style="padding: 5px;text-align: left; width: 15%;">Phone</th>
+                                <td style="padding: 5px;" t-out="ctx['sales_person_phone'] or '-'">+621</td>
+                            </tr>
+                            <tr>
+                                <th style="padding: 5px;text-align: left; width: 15%;">Email</th>
+                                <td style="padding: 5px;" t-out="ctx['sales_person_email'] or '-'">zensoftware@us</td>
+                            </tr>
+                        </table>
+                        <br/>
+                            We look forward to having great business with you.
+                        <br/>
+                        <br/>
+
+                    </p>
+                </div>
+            </field>
+            <!-- <field name="report_template" ref="sale.action_report_saleorder"/>
+            <field name="report_name">{{ (object.name or '').replace('/','_') }}</field> -->
+            <field name="lang">{{ object.partner_id.lang }}</field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+
+
+        <record id="email_template_sales_order_to_sales_person_reminder_2" model="mail.template">
+            <field name="name">Sales: Send Reminder 2nd to Sales Person</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="subject">Re: {{ object.company_id.name }} {{ object.state in ('draft', 'sent') and (ctx.get('proforma') and 'Proforma' or 'Quotation') or 'Order' }} (Ref {{ object.name or 'n/a' }}) - No Response Received 2nd Reminder</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                            Dear <t t-out="ctx['sales_person_name'] or ''"></t>,
+                        <br/>
+                        <br/>
+                           We are still awaiting response from customer on quotation <t t-out="object.name or '-'"></t>. Kindly connect with the following to get an update.
+                        <br/>
+                        Contact Customer Details :
+                        <table style="table-layout: fixed; width: 80%; margin: auto;">
+                            <tr>
+                                <th style="padding: 5px;text-align: left; width: 15%;">Name</th>
+                                <td style="padding: 5px;" t-out="object.partner_id.name or '-'">Administrator</td>
+                            </tr>
+                            <tr>
+                                <th style="padding: 5px;text-align: left; width: 15%;">Phone</th>
+                                <td style="padding: 5px;" t-out="object.partner_id.phone">+621</td>
+                            </tr>
+                            <tr>
+                                <th style="padding: 5px;text-align: left; width: 15%;">Email</th>
+                                <td style="padding: 5px;" t-out="object.partner_id.email">zensoftware@us</td>
+                            </tr>
+                        </table>
+                    </p>
+                </div>
+            </field>
+        </record>
+
+        <record id="email_template_sales_order_to_sales_person_reminder_3" model="mail.template">
+            <field name="name">Sales: Send Reminder 3rd to Sales Person</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="subject">Re: {{ object.company_id.name }} {{ object.state in ('draft', 'sent') and (ctx.get('proforma') and 'Proforma' or 'Quotation') or 'Order' }} (Ref {{ object.name or 'n/a' }}) - No Response Received 3rd Reminder</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                            Dear <t t-out="ctx['sales_person_name'] or ''"></t>,
+                        <br/>
+                        <br/>
+                           We are still awaiting response from customer on quotation <t t-out="object.name or '-'"></t>. Kindly connect with the following to get an update.
+                        <br/>
+                        Contact Customer Details :
+                        <table style="table-layout: fixed; width: 80%; margin: auto;">
+                            <tr>
+                                <th style="padding: 5px;text-align: left; width: 15%;">Name</th>
+                                <td style="padding: 5px;" t-out="object.partner_id.name or '-'">Administrator</td>
+                            </tr>
+                            <tr>
+                                <th style="padding: 5px;text-align: left; width: 15%;">Phone</th>
+                                <td style="padding: 5px;" t-out="object.partner_id.phone">+621</td>
+                            </tr>
+                            <tr>
+                                <th style="padding: 5px;text-align: left; width: 15%;">Email</th>
+                                <td style="padding: 5px;" t-out="object.partner_id.email">zensoftware@us</td>
+                            </tr>
+                        </table>
+                    </p>
+                </div>
+            </field>
+        </record>
+
+        <record id="email_template_sales_order_to_escalation_user_1" model="mail.template">
+            <field name="name">Sales: Send Reminder 1st to Escalation</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="subject">Re: {{ object.company_id.name }} {{ object.state in ('draft', 'sent') and (ctx.get('proforma') and 'Proforma' or 'Quotation') or 'Order' }} (Ref {{ object.name or 'n/a' }}) - No Response Received (1st Escalation)</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                            Dear Team 1st Escalation ,
+                        <br/>
+                        <br/>
+                           We are still awaiting response from customer on quotation <t t-out="object.name or '-'"></t>. Kindly connect with the following to get an update.
+                        <br/>
+                        Sale Person Details :
+                        <table style="table-layout: fixed; width: 80%; margin: auto;">
+                            <tr>
+                                <th style="padding: 5px;text-align: left; width: 15%;">Name</th>
+                                <td style="padding: 5px;" t-out="ctx['sales_person_name'] or '-'">+621</td>
+                            </tr>
+                            <tr>
+                                <th style="padding: 5px;text-align: left; width: 15%;">Phone</th>
+                                <td style="padding: 5px;" t-out="ctx['sales_person_phone'] or '-'">+621</td>
+                            </tr>
+                            <tr>
+                                <th style="padding: 5px;text-align: left; width: 15%;">Email</th>
+                                <td style="padding: 5px;" t-out="ctx['sales_person_email'] or '-'">+621</td>
+                            </tr>
+                        </table>
+                        <br/>
+                        Contact Customer Details :
+                        <table style="table-layout: fixed; width: 80%; margin: auto;">
+                            <tr>
+                                <th style="padding: 5px;text-align: left; width: 15%;">Name</th>
+                                <td style="padding: 5px;" t-out="object.partner_id.name or '-'">Administrator</td>
+                            </tr>
+                            <tr>
+                                <th style="padding: 5px;text-align: left; width: 15%;">Phone</th>
+                                <td style="padding: 5px;" t-out="object.partner_id.phone">+621</td>
+                            </tr>
+                            <tr>
+                                <th style="padding: 5px;text-align: left; width: 15%;">Email</th>
+                                <td style="padding: 5px;" t-out="object.partner_id.email">zensoftware@us</td>
+                            </tr>
+                        </table>
+                    </p>
+                </div>
+            </field>
+        </record>
+
+        <record id="email_template_sales_order_to_escalation_user_2" model="mail.template">
+            <field name="name">Sales: Send Reminder 2nd to Escalation</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="subject">Re: {{ object.company_id.name }} {{ object.state in ('draft', 'sent') and (ctx.get('proforma') and 'Proforma' or 'Quotation') or 'Order' }} (Ref {{ object.name or 'n/a' }}) - No Response Received (2nd Escalation)</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                            Dear Team 2nd Escalation ,
+                        <br/>
+                        <br/>
+                           We are still awaiting response from customer on quotation <t t-out="object.name or '-'"></t>. Kindly connect with the following to get an update.
+                        <br/>
+                        Sale Person Details :
+                        <table style="table-layout: fixed; width: 80%; margin: auto;">
+                            <tr>
+                                <th style="padding: 5px;text-align: left; width: 15%;">Name</th>
+                                <td style="padding: 5px;" t-out="ctx['sales_person_name'] or '-'">+621</td>
+                            </tr>
+                            <tr>
+                                <th style="padding: 5px;text-align: left; width: 15%;">Phone</th>
+                                <td style="padding: 5px;" t-out="ctx['sales_person_phone'] or '-'">+621</td>
+                            </tr>
+                            <tr>
+                                <th style="padding: 5px;text-align: left; width: 15%;">Email</th>
+                                <td style="padding: 5px;" t-out="ctx['sales_person_email'] or '-'">+621</td>
+                            </tr>
+                        </table>
+                        <br/>
+                        Contact Customer Details :
+                        <table style="table-layout: fixed; width: 80%; margin: auto;">
+                            <tr>
+                                <th style="padding: 5px;text-align: left; width: 15%;">Name</th>
+                                <td style="padding: 5px;" t-out="object.partner_id.name or '-'">Administrator</td>
+                            </tr>
+                            <tr>
+                                <th style="padding: 5px;text-align: left; width: 15%;">Phone</th>
+                                <td style="padding: 5px;" t-out="object.partner_id.phone">+621</td>
+                            </tr>
+                            <tr>
+                                <th style="padding: 5px;text-align: left; width: 15%;">Email</th>
+                                <td style="padding: 5px;" t-out="object.partner_id.email">zensoftware@us</td>
+                            </tr>
+                        </table>
+                    </p>
+                </div>
+            </field>
+        </record>
+
+        
+        
+
+
+
+        
+
+
+
+    </data>
+
+
+</odoo>

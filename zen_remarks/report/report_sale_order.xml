@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Inherit the Quotation PDF report -->
+        <template id="report_saleorder_document_inherit" inherit_id="sale.report_saleorder_document">
+            <xpath expr="//h2[hasclass('mt-4')]" position="replace">
+                <h2 class="mt-4">
+                    <span t-if="env.context.get('proforma', False) or is_pro_forma">Pro-Forma Invoice # </span>
+                    <span t-elif="doc.state in ['draft','sent']">Quotation # </span>
+                    <span t-else="">Order # </span>
+                    <t t-if="doc.revision_number">
+                        <span><t t-esc="doc.name"/></span>
+                        <span>R<t t-esc="doc.revision_number"/></span>
+                    </t>
+                    <t t-else="">
+                        <span t-esc="doc.name"/>
+                    </t>
+                </h2>
+            </xpath>
+            <xpath expr="//div[@name='so_total_summary']" position="after">
+                <div class="row mt-4 mb-4" id="informations" name="remarks">
+                <div t-if="doc.remarks" class="col-auto col-12 mw-100 mb-2">
+                    <strong>Remarks:</strong>
+                    <p class="m-0" t-field="doc.remarks"/>
+                </div>
+            </div>
+            </xpath>
+        </template>
+    </data>
+</odoo>

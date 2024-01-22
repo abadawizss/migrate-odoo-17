@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="zen_sale_order_inherit_sale_order_view" model="ir.ui.view">
+        <field name="name">zen.sale.order.inherit.sale.order.view</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='note_group']" position="after">
+                <group name="remarks" col="6" class="mt-2 mt-md-0">
+                    <group colspan="4">
+                        <field colspan="2" name="remarks" nolabel="1" placeholder="Remarks..."/>
+                    </group>
+                    <div class="clearfix"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

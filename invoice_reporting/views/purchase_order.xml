@@ -1,0 +1,238 @@
+<odoo>
+    <data>
+        <template id="custom_report_purchaseorder_document">
+            <t t-call="web.external_layout">
+                <br/>
+                <br/>
+                <br/>
+                <div class="page">
+                    <style>
+                        table {
+                        font-family: arial, sans-serif;
+                        border-collapse: collapse;
+                        width: 100%;
+                        }
+                        td, th,tr {
+                        color:black;
+                        border: 1px solid black;
+                        padding-left:10px;
+                        padding-right:10px;
+                        padding-top:10px;
+                        padding-bottom:10px;
+                        }
+                        .content:after {
+                        content: "";
+                        display: block;
+                        border-bottom: 1px solid black;
+                        }
+                    </style>
+                    <table width="100%" class="info_table">
+                        <!--                        <tr height="200pt">-->
+                        <!--                            <td colspan="12" style="text-align: center;">-->
+                        <!--                                <span style="text-align:left;">GSTIN:</span>-->
+                        <!--                                <span t-field="o.partner_id.name"/>-->
+                        <!--                                <br/>-->
+                        <!--                                <b style="text-decoration: underline;">Purchase Order</b>-->
+                        <!--                                <br/>-->
+                        <!--                                <b>Rashmi Electricals</b>-->
+                        <!--                                <br/>-->
+                        <!--                                <span>A-1/205-206, Sector-17, Kavi Nagar Indl. Area, Ghaziabad</span>-->
+                        <!--                                <br/>-->
+                        <!--                                <span>(Inside Swadeshi Compound), U.P-201002</span>-->
+                        <!--                                <br/>-->
+                        <!--                                <span>Tel.: 0120-2836195, 9811875696 email: info@rashmielectricals.com</span>-->
+                        <!--                                <br/>-->
+                        <!--                            </td>-->
+                        <!--                        </tr>-->
+
+                        <tr height="100pt">
+                            <td colspan="4">
+                                <span style="text-align:left;">Order No.:</span>
+                                <span t-field="o.name"/>
+                                <br/>
+                                <br/>
+                                <span style="text-align:left;">Date:</span>
+                                <span t-field="o.date_order"/>
+                                <br/>
+                                <br/>
+                                <span style="text-align:left;">Ref QT No:</span>
+                                <span t-field="o.Ref_qty_no"/>
+                            </td>
+                            <td colspan="8">
+                                <span style="text-align:left;">Ref QT Dt:</span>
+                                <span t-field="o.Ref_qty_dt"/>
+                                <br/>
+                                <br/>
+                                <span style="text-align:left;">Others:</span>
+                                <span t-field="o.others"/>
+                                <br/>
+                                <br/>
+                                <!--                                <span style="text-align:left;">Others:</span>-->
+                                <!--                                <span t-field="o.partner_id.name"/>-->
+                            </td>
+                        </tr>
+                        <tr height="100pt">
+                            <td colspan="4">
+                                <b style="text-align:left;">Order to.:</b>
+                                <span t-field="o.partner_id.name"/>
+                                <br/>
+                                <br/>
+                                <span style="text-align:left;">GSTIN / UIN:</span>
+                                <span t-field="o.partner_id.vat"/>
+
+                            </td>
+                            <td colspan="8">
+                                <b style="text-align:left;">Shipped to:</b>
+                                <span t-field="o.partner_id.name"/>
+                                <br/>
+                                <br/>
+                                <span style="text-align:left;">GSTIN / UIN:</span>
+                                <span t-field="o.partner_id.vat"/>
+
+                            </td>
+                        </tr>
+                        <tr height="40pt">
+                            <td colspan="12"></td>
+                        </tr>
+                        <tr height="40pt">
+                            <td colspan="12">
+                                We are pleased to place the order for the following items :
+                            </td>
+                        </tr>
+                        <!--                    <thead>-->
+
+                        <tr height="50pt">
+                            <th style="text-align:center;">S.N.</th>
+                            <th style="text-align:left;" colspan="3">Description of Goods</th>
+                            <th style="text-align:center;">HSN/SAC Code</th>
+                            <!--                            <th style="text-align:center;">CAT. NO.</th>-->
+                            <th style="text-align:center;">Qty.</th>
+                            <th style="text-align:center;">Unit</th>
+                            <th style="text-align:center;">List Price</th>
+                            <th style="text-align:center;">Discount</th>
+                            <th style="text-align:center;">Price</th>
+                            <th style="text-align:center;">Amount</th>
+
+                        </tr>
+                        <t t-set="serial" t-value="0"/>
+                        <t t-foreach="o.order_line" t-as="line">
+                            <t t-set="subtotal" t-value="0"/>
+
+                            <t t-set="serial" t-value="serial + 1"/>
+                            <tr height="50pt">
+                                <td style="text-align:center;">
+                                    <t t-esc="serial"/> <!-- S.No-->
+                                </td>
+                                <td style="text-align:left;" colspan="3">  <!--Description -->
+                                    <span t-field="line.name"/>
+                                </td>
+                                <td style="text-align:center;"> <!--HSN -->
+                                    <span t-field="line.product_id.l10n_in_hsn_code"/>
+                                </td>
+                                <!--                                <td style="text-align:center;"> &lt;!&ndash;CAT &ndash;&gt;-->
+                                <!--                                    <span t-field="line.name"/>-->
+                                <!--                                </td>-->
+                                <td style="text-align:center;"> <!--Qty -->
+                                    <span t-field="line.product_qty"/>
+                                </td>
+                                <td style="text-align:center;"> <!-- Unit-->
+                                    <span t-field="line.product_qty"/>
+                                </td>
+                                <td style="text-align:center;"> <!-- List Price-->
+                                    <span t-field="line.product_id.lst_price"/>
+                                </td>
+                                <td style="text-align:center;"> <!--Discount -->
+                                    <!--                                    <span t-field="line.name"/>-->
+                                </td>
+                                <td style="text-align:center;"> <!--Price -->
+                                    <span t-field="line.price_unit"/>
+                                </td>
+                                <t t-set="subtotal" t-value="subtotal + (line.product_qty*line.price_unit)"/>
+                                <td style="text-align:center;"> <!--Amount -->
+                                    <!--                                    <t t-esc="subtotal"/>-->
+                                    <span t-field="line.price_subtotal"/>
+                                </td>
+                            </tr>
+                        </t>
+                        <!--                    </thead>-->
+                        <tr height="30pt">
+                            <td colspan="10" style="text-align: right;">
+                                Grand Total
+                            </td>
+                            <td style="text-align: center;">
+                                <span t-esc="o.amount_total"/>
+                            </td>
+                        </tr>
+                        <tr height="30pt">
+                            <td colspan="12">
+                                <b>Rupees:
+                                    <span t-esc="o.currency_id.amount_to_text(o.amount_total)"/>
+                                </b>
+                            </td>
+                        </tr>
+                        <tr height="90pt">
+                            <td colspan="12" style="text-align:center;">
+                                <b style="text-decoration: underline;">Declaration</b>
+
+                                <br/>
+                                <div style="text-align:center;">
+
+                                    Review this document and acknowledge. After 15 days from the date of PO it is
+                                    considered
+                                    as
+                                    Accepted.
+                                    <br/>
+                                    For Delivery Address, please contact at our office or concerning Authority.
+                                </div>
+                            </td>
+                        </tr>
+                        <tr height="80pt">
+
+                            <td colspan="4">
+                                <b style="text-decoration: underline;">Terms and Conditions</b>
+                                <br/>
+                                <span>Taxes:</span>
+                                <span t-field="o.amount_tax"/>
+                                <br/>
+                                <span>Payment:</span>
+                                <span t-field="o.payment_term_id"/>
+                            </td>
+                            <td colspan="8">
+
+                                <div class="content" height="40pt">
+                                    <br/>
+                                    <b>Receiver's Signature:</b>
+                                    <br/>
+                                    <br/>
+                                </div>
+                                <span>
+                                    For Rashmi Electricals
+                                </span>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <div style="text-align: center;">
+
+                                    <div style="float: left;">
+                                        <b>Prepared by</b>
+                                    </div>
+                                    <div style="float: right;">
+                                        <b>Approved by</b>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </t>
+        </template>
+
+        <template id="custom_report_purchaseorder">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="invoice_reporting.custom_report_purchaseorder_document" t-lang="o.partner_id.lang"/>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

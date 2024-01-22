@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_invoice_reporting_invoice_reporting,invoice_reporting.invoice_reporting,model_invoice_reporting_invoice_reporting,base.group_user,1,1,1,1

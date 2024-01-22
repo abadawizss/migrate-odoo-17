@@ -1,0 +1,110 @@
+<odoo>
+    <data>
+        <!-- Purchase order report -->
+        <!-- <report id="custom_action_report_purchase_order"
+                model="purchase.order"
+                string="Relec Purchase Order" report_type="qweb-pdf"
+                name="invoice_reporting.custom_report_purchaseorder"
+                file="invoice_reporting.custom_report_purchaseorder"
+                print_report_name="(object._get_report_base_filename())"/> -->
+        <!-- Inovice perfoma report -->
+        <!-- <report id="custom_action_report_perfoma_invoice_report"
+                model="account.move"
+                string="Relec Perfoma Invoice" report_type="qweb-pdf"
+                name="invoice_reporting.custom_perfoma_invoice_report"
+                file="invoice_reporting.custom_perfoma_invoice_report"
+                print_report_name="(object._get_report_base_filename())"/> -->
+        <!-- Tax invoice reprot -->
+        <!-- <report id="custom_action_report_tax_invoice_report"
+                model="account.move"
+                string="Relec Tax Invoice" report_type="qweb-pdf"
+                name="invoice_reporting.custom_tax_invoice_report"
+                file="invoice_reporting.custom_tax_invoice_report"
+                print_report_name="(object._get_report_base_filename())"/> -->
+        <!-- Sale order perfoma report -->
+        <!-- <report id="custom_action_sale_order_perfoma_report"
+                model="sale.order"
+                string="Relec Perfoma/Sale order" report_type="qweb-pdf"
+                name="invoice_reporting.custom_perfoma_sale_report"
+                file="invoice_reporting.custom_perfoma_sale_report"
+                print_report_name="'Sale Order Perfoma - %s' % (object._get_report_base_filename())"/> -->
+
+        <!-- Purchase order report -->
+        <record id="custom_action_report_purchase_order" model="ir.actions.report">
+            <field name="name">Relec Purchase Order</field>
+            <field name="model">purchase.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">invoice_reporting.custom_report_purchaseorder</field>
+            <field name="report_file">invoice_reporting.custom_report_purchaseorder</field>
+            <field name="print_report_name">(object._get_report_base_filename())</field>
+            <field name="binding_model_id" ref="model_purchase_order"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <!-- Inovice perfoma report -->
+        <record id="custom_action_report_perfoma_invoice_report" model="ir.actions.report">
+            <field name="name">Relec Perfoma Invoice</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">invoice_reporting.custom_perfoma_invoice_report</field>
+            <field name="report_file">invoice_reporting.custom_perfoma_invoice_report</field>
+            <field name="print_report_name">(object._get_report_base_filename())</field>
+            <field name="binding_model_id" ref="model_account_move"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <!-- Tax invoice reprot -->
+        <record id="custom_action_report_tax_invoice_report" model="ir.actions.report">
+            <field name="name">Relec Tax Invoice</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">invoice_reporting.custom_tax_invoice_report</field>
+            <field name="report_file">invoice_reporting.custom_tax_invoice_report</field>
+            <field name="print_report_name">(object._get_report_base_filename())</field>
+            <field name="binding_model_id" ref="model_account_move"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <!-- Sale order perfoma report -->
+        <record id="custom_action_sale_order_perfoma_report" model="ir.actions.report">
+            <field name="name">Relec Tax Invoice</field>
+            <field name="model">sale.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">invoice_reporting.custom_perfoma_sale_report</field>
+            <field name="report_file">invoice_reporting.custom_perfoma_sale_report</field>
+            <field name="print_report_name">'Sale Order Perfoma - %s' % (object._get_report_base_filename())</field>
+            <field name="binding_model_id" ref="model_sale_order"/>
+            <field name="binding_type">report</field>
+        </record>
+    <!-- Report Format   -->
+
+        <record id="paperformat_lowmargin_tax_invoice" model="report.paperformat">
+            <field name="name">Tax Invoice Format</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">397</field>
+            <field name="page_width">350</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">40</field>
+            <field name="margin_bottom">23</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">32</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="invoice_reporting.custom_action_report_tax_invoice_report" model="ir.actions.report">
+            <field name="paperformat_id" ref="invoice_reporting.paperformat_lowmargin_tax_invoice"/>
+        </record>
+        <record id="invoice_reporting.custom_action_report_purchase_order" model="ir.actions.report">
+            <field name="paperformat_id" ref="invoice_reporting.paperformat_lowmargin_tax_invoice"/>
+        </record>
+        <record id="invoice_reporting.custom_action_report_perfoma_invoice_report" model="ir.actions.report">
+            <field name="paperformat_id" ref="invoice_reporting.paperformat_lowmargin_tax_invoice"/>
+        </record>
+        <record id="invoice_reporting.custom_action_sale_order_perfoma_report" model="ir.actions.report">
+            <field name="paperformat_id" ref="invoice_reporting.paperformat_lowmargin_tax_invoice"/>
+        </record>
+    </data>
+</odoo> 

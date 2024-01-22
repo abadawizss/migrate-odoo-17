@@ -1,0 +1,264 @@
+<odoo>
+    <data>
+        <template id="custom_perfoma_invoice_report_document">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <style>
+                        table {
+                        border-collapse: collapse;
+                        width: 100%;
+                        }
+                        td, th,tr {
+                        color:black;
+                        border: 1px solid black;
+                        padding-left:10px;
+                        padding-right:10px;
+                        padding-top:10px;
+                        padding-bottom:10px;
+                        }
+                        .content:after {
+                        content: "";
+                        display: block;
+                        border-bottom: 1px solid black;
+                        }
+                    </style>
+                    <br/>
+                    <br/>
+                    <table width="100%" class="info_table">
+                        <!--                        <tr height="140pt">-->
+                        <!--                            <td colspan="12">-->
+                        <!--                                <div style="text-align: left;">-->
+                        <!--                                    <span>GSTIN:</span>-->
+                        <!--                                    <span t-field="o.partner_id"/>-->
+                        <!--                                </div>-->
+                        <!--                                <div style="text-align: center;">-->
+                        <!--                                    <br/>-->
+                        <!--                                    <b style="text-decoration: underline;">Performa Invoice</b>-->
+                        <!--                                    <br/>-->
+                        <!--                                    <b>Rashmi Electricals</b>-->
+                        <!--                                    <br/>-->
+                        <!--                                    <span>A-1/205-206, Sector-17, Kavi Nagar Indl. Area, Ghaziabad</span>-->
+                        <!--                                    <br/>-->
+                        <!--                                    <span>U.P-201002</span>-->
+                        <!--                                    <br/>-->
+                        <!--                                    <span>Tel.: 0120-2836195, 9811875696 email: info@rashmielectricals.com</span>-->
+                        <!--                                    <br/>-->
+                        <!--                                    <b>IE CODE: ADUPA1070F</b>-->
+                        <!--                                </div>-->
+
+                        <!--                            </td>-->
+                        <!--                        </tr>-->
+                        <tr height="100pt">
+                            <div style="text-align: left;">
+                                <span>GSTIN:</span>
+                                <span t-field="o.partner_id.vat"/>
+                            </div>
+                            <td colspan="4">
+                                <div>
+                                    <b style="text-align:left;">Order No:</b>
+                                    <!--                                    <span t-field="o.partner_id"/>-->
+                                </div>
+                                <div style="text-align:left;">Date:
+                                    <span t-field="o.invoice_date"/>
+                                </div>
+                                <div style="text-align:left;">PO NO:
+                                    <span t-field="o.po_no"/>
+                                </div>
+                            </td>
+                            <td colspan="8">
+                                <span style="text-align:left;">PO DT:</span>
+                                <span t-field="o.po_date"/>
+                                <br/>
+                                <span style="text-align:left;">Remark:</span>
+                                <span t-field="o.remark"/>
+                                <br/>
+                                <span style="text-align:left;">Any:</span>
+                                <span t-field="o.others"/>
+                            </td>
+                        </tr>
+
+                        <tr height="100pt">
+                            <td colspan="4">
+                                <span style="text-align:left;">Station:</span>
+                                <span t-field="o.station"/>
+                                <br/>
+                                <span style="text-align:left;">Party E-Mail ID:</span>
+                                <span t-field="o.partner_id.email"/>
+                                <br/>
+                                <span style="text-align:left;">Party Mobile No:</span>
+                                <span t-field="o.partner_id.phone"/>
+                                <br/>
+                                <span style="text-align:left;">State:</span>
+                                <span t-field="o.partner_id.state_id.name"/>
+                                <br/>
+                                <span style="text-align:left;">Party Pincode:</span>
+                                <span t-field="o.partner_id.zip"/>
+                                <br/>
+                                <span style="text-align:left;">GSTIN / UIN:</span>
+                                <span t-field="o.partner_id.vat"/>
+                            </td>
+                            <td colspan="8">
+                                <span style="text-align:left;">Shipped to:</span>
+                                <span t-field="o.partner_id"/>
+                                <br/>
+                                <span style="text-align:left;">Party E-Mail ID:</span>
+                                <span t-field="o.partner_id.email"/>
+                                <br/>
+                                <span style="text-align:left;">Party Mobile No:</span>
+                                <span t-field="o.partner_id.phone"/>
+                                <br/>
+                                <span style="text-align:left;">State:</span>
+                                <span t-field="o.partner_id.state_id.name"/>
+                                <br/>
+                                <span style="text-align:left;">Party Pincode:</span>
+                                <span t-field="o.partner_id.zip"/>
+                                <br/>
+                                <span style="text-align:left;">GSTIN / UIN:</span>
+                                <span t-field="o.partner_id.vat"/>
+                            </td>
+                        </tr>
+                        <tr height="40pt">
+                            <td colspan="12"></td>
+                        </tr>
+                        <tr height="40pt">
+                            <td colspan="12">l10n_in_hsn_code
+                                We are pleased to place the order for the following items :
+                            </td>
+                        </tr>
+                        <!--                    <thead>-->
+
+                        <tr height="45pt">
+                            <th style="text-align:center;">S.N.</th>
+                            <th style="text-align:left;" colspan="3">Description of Goods</th>
+                            <th style="text-align:center;">HSN/SAC Code</th>
+                            <th style="text-align:center;">Qty.</th>
+                            <th style="text-align:center;">Unit</th>
+                            <th style="text-align:center;">Price</th>
+                            <th style="text-align:center;">Amount</th>
+
+                        </tr>
+                        <t t-set="serial" t-value="0"/>
+                        <t t-foreach="o.invoice_line_ids" t-as="line">
+                            <t t-set="subtotal" t-value="0"/>
+                            <t t-set="serial" t-value="serial + 1"/>
+                            <tr height="50pt">
+                                <td style="text-align:center;">
+                                    <t t-esc="serial"/> <!-- S.No-->
+                                </td>
+                                <td colspan="3" style="text-align:left;">  <!--Description -->
+                                    <span t-field="line.name"/>
+                                </td>
+                                <td style="text-align:center;"> <!--HSN -->
+                                    <span t-field="line.product_id.l10n_in_hsn_code"/>
+                                </td>
+<!--                                <td style="text-align:center;"> &lt;!&ndash;CAT &ndash;&gt;-->
+                                    <!--                                    <span t-field="line.product_id"/>-->
+<!--                                </td>-->
+                                <td style="text-align:center;"> <!--Qty -->
+                                    <span t-field="line.quantity"/>
+                                </td>
+                                <td style="text-align:center;"> <!-- Unit-->
+                                    <span t-field="line.price_unit"/>
+                                </td>
+                                <td style="text-align:center;"> <!--Price -->
+                                    <span t-field="line.price_unit"/>
+                                </td>
+                                <t t-set="subtotal" t-value="subtotal + (line.quantity*line.price_unit)"/>
+                                <td style="text-align:center;"> <!--Amount -->
+                                    <span t-field="line.price_subtotal"/>
+                                    <!--                                    <t t-esc="subtotal"/>-->
+                                </td>
+                            </tr>
+                        </t>
+                        <!--                    </thead>-->
+                        <tr height="30pt">
+                            <td colspan='8' style="text-align: right; font-size:14px;">
+                                <b>Grand Total</b>
+                            </td>
+                            <td style="text-align: center;">
+                                <span t-esc="o.amount_total"/>
+                            </td>
+                        </tr>
+                        <tr height="30pt">
+                            <td colspan="12">
+                                <b>Rupees:
+                                    <span t-esc="o.currency_id.amount_to_text(o.amount_total)"/>
+                                </b>
+                            </td>
+                        </tr>
+                        <tr height="60pt">
+                            <td colspan="12" style="text-align:center;">
+                                <b style="text-decoration: underline;">Declaration</b>
+                                <br/>
+                                <div style="text-align:center;">
+                                    Please check the above details and confirm for final billing
+                                </div>
+                            </td>
+                        </tr>
+                        <tr height="50pt">
+                            <td colspan="12">
+                                <b>Bank Details :</b>
+                                ICICI BANK LTD (RDC RAJ NAGAR GHAZIABAD)
+                                <br/>
+                                CC A/C 628605007288 IFSC ICIC0006286
+                            </td>
+
+                        </tr>
+                        <tr height="70pt">
+
+                            <td colspan="5">
+                                <b style="text-decoration: underline;">Terms and Conditions</b>
+                                <br/>
+                                <span>
+                                    Material shall be shipped after receieving 100% Payment.
+                                    <br/>
+                                    Prices quoted in offer are basic ex-works Ghaziabad only.
+                                </span>
+                            </td>
+                            <td colspan="7">
+                                <div class="content" height="40pt">
+                                    <br/>
+                                    <b>Receiver's Signature:</b>
+                                    <br/>
+                                    <br/>
+                                </div>
+                                <br/>
+                                <div style="text-align:left;">
+                                    <b>For Rashmi Electricals</b>
+                                </div>
+                                <br/>
+                                <div class="row">
+                                    <div style="text-align: left; display: inline-block;">
+                                        <strong>
+                                            Prepared By:
+                                        </strong>
+                                    </div>
+                                    <div style=" display: inline-block;">
+                                        <strong>
+                                            Checked By:
+                                        </strong>
+                                    </div>
+                                    <div style=" display: inline-block;">
+                                        <strong>
+                                            Approved by:
+                                        </strong>
+                                    </div>
+                                </div>
+
+
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </t>
+        </template>
+
+        <template id="custom_perfoma_invoice_report">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="invoice_reporting.custom_perfoma_invoice_report_document" t-lang="o.partner_id.lang"/>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

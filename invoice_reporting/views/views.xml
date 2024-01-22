@@ -1,0 +1,63 @@
+<odoo>
+    <data>
+        <record id="view_sale_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='sales_person']" position="after">
+                    <group>
+                        <group name="po_info" string="PO Info">
+                            <field name="po_no"/>
+                            <field name="po_date"/>
+                            <field name="remark"/>
+                            <field name="po_any"/>
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_move_form_inherit" model="ir.ui.view">
+            <field name="name">account.move.form.inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='source_id']" position="after">
+                    <field name="e_way_bill"/>
+                    <field name="station"/>
+                    <field name="reverse_charge"/>
+                    <field name="po_no"/>
+                    <field name="po_date"/>
+                    <field name="others"/>
+                    <field name="remark"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_relec_account_move_form_inherit" model="ir.ui.view">
+            <field name="name">relec.account.move.form.inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="relec_account.view_move_form_inherit_pyrax"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='transport']" position="after">
+                    <field name="vehicle_number"/>
+                    <field name="grr_no"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_purchase_order_form_inherit" model="ir.ui.view">
+            <field name="name">purchase.order.form.inherit</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='fiscal_position_id']" position="after">
+                    <field name="Ref_qty_dt"/>
+                    <field name="Ref_qty_no"/>
+                    <field name="others"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

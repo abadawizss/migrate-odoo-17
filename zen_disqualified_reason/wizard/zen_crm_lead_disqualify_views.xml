@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<odoo>
+        <record id="crm_lead_disqualify_view_form" model="ir.ui.view">
+            <field name="name">crm.lead.disqualify.form</field>
+            <field name="model">crm.lead.disqualification</field>
+            <field name="arch" type="xml">
+                <form string="Disqualification Reason">
+                    <group>
+                        <field name="disqualify_reason_id" options="{'no_create_edit': True}" />
+                    </group>
+                    <field name="disqualify_feedback" placeholder="What went wrong ?"/>
+                    <footer>
+                        <button name="action_disqualify_reason_apply" string="Submit" type="object" class="btn-primary" data-hotkey="q"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="z"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+</odoo>

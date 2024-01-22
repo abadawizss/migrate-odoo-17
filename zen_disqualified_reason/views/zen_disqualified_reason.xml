@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="zen_crm_lead_inherit_form_view" model="ir.ui.view">
+        <field name="name">zen.crm.lead.inherit.form.view</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+            <field name="show_button_disualify" invisible="1"/>
+                <button name="action_disqualification" string="Disqualify" invisible="show_button_disualify == False or active == False or probability == 100 or type == 'lead'" type="object" title="Mark as Disqualify"/>
+                <!-- attrs="{'invisible': ['|','|','|',('show_button_disualify','=',False),('active','=',False), ('probability', '=', 100), ('type', '=', 'lead')]}"  -->
+                <button name="action_disqualification" string="Disqualify" type="object" data-hotkey="l" invisible="type == 'opportunity' and probability == 0 or show_button_disualify == False" title="Mark as Disqualify"/>
+                <!-- attrs="{'invisible': ['|', ('type', '=', 'opportunity'), '&amp;', ('probability', '=', 0), ('show_button_disualify','=',False)]}" -->
+            </xpath>
+            <xpath expr="////div[hasclass('oe_title')]" position="before">
+                <widget name="web_ribbon" title="Disqualified" bg_color="bg-warning" invisible="probability > 0 or active == False or show_button_disualify == True"/>
+                <!-- attrs="{'invisible': ['|', '|',('probability', '&gt;', 0), ('active','=',False),('show_button_disualify','=',True)]}" -->
+            </xpath>
+        </field>
+    </record>
+
+    <record id="zen_disqualify_reason_view_tree" model="ir.ui.view">
+        <field name="name">zen.disqualify.reason.view_tree</field>
+        <field name="model">zen.crm.disqualify.reason</field>
+        <field name="arch" type="xml">
+            <tree string="Disqualify Reasons" editable="bottom">
+                <field name="name"></field>
+            </tree>
+        </field>
+    </record>
+
+    <record id="zen_disqualify_reason_view_action" model="ir.actions.act_window">
+        <field name="name">Disqualify Reasons</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">zen.crm.disqualify.reason</field>
+        <field name="view_mode">tree,form,search</field>
+    </record>
+    <menuitem id="menu_crm_disqualify_reason" name="Disqualify Reasons" parent="crm.menu_crm_config_lead" action="zen_disqualified_reason.zen_disqualify_reason_view_action" sequence="7"/>
+</odoo>

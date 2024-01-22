@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="saleorder_form_inherit" model="ir.ui.view">
+        <field name="name">pyrax.saleorder.form.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <field name="payment_term_id" position="after">
+                <field name="exporter_ref"/>
+            </field>
+            <notebook position="inside">
+                <page name="transport" string="Transport">
+                    <group>
+                        <group>
+                            <field name="transport"/>
+                            <field name="carrier_id"/>
+                            <field name="pre_carrier_receipt_place"/>
+                        </group>
+                        <group>
+                            <field name="port_loading"/>
+                            <field name="port_discharge"/>
+                            <field name="origin_country_id"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="delivery_payment_terms"/>
+                    </group>
+                </page>
+                <page name="bank" string="Bank Details">
+                    <group>
+                        <group>
+                            <field name="bank_account_id"/>
+                            <field name="corr_bank_account_id"/>
+                        </group>
+                        <group>
+                            <field name="additional_bank_details"/>
+                        </group>
+                    </group>
+                </page>
+            </notebook>
+            <group name="sale_shipping" position="after">
+                <group string="Print">
+                    <field name="print_stamp"/>
+                    <field name="print_signature"/>
+                </group>
+            </group>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="after">
+                <field name="use_date" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

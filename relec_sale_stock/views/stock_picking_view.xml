@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE xml>
+<odoo>
+
+    <record id="stock_picking_form_view_inherit_pyrax_stock" model="ir.ui.view">
+        <field name="name">stock.picking.form.view.inherit.pyrax.stock</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='backorder_id']" position="after">
+                <field name="sale_id"/>
+            </xpath>
+            <field name="owner_id" position="after">
+            <field name="invoice_no" readonly="state == ['done', 'cancel']"/>
+            <field name="invoice_date" placeholder="Invoice Date" readonly="state == ['done', 'cancel']"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

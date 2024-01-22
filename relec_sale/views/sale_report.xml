@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- <report
+            id="sale.action_report_pro_forma_invoice"
+            string="PRO-FORMA Invoice"
+            model="sale.order"
+            report_type="qweb-pdf"
+            groups="sale.group_proforma_sales"
+            file="relec_sale.pyrax_report_saleorder_pro_forma"
+            name="relec_sale.pyrax_report_saleorder_pro_forma"
+            print_report_name="'PRO-FORMA - %s' % (object.name)"/> -->
+
+        <!-- Domestic QWeb Reports -->
+        <!-- <report
+            id="action_report_domestic_pro_forma_invoice"
+            string="Domestic - PRO-FORMA Invoice"
+            model="sale.order"
+            report_type="qweb-pdf"
+            groups="sale.group_proforma_sales"
+            file="relec_sale.pyrax_report_saleorder_domestic_pro_forma"
+            name="relec_sale.pyrax_report_saleorder_domestic_pro_forma"
+            print_report_name="'PRO-FORMA - %s' % (object.name)"/> -->
+
+        <record id="sale.action_report_pro_forma_invoice" model="ir.actions.report">
+            <field name="name">PRO-FORMA Invoice</field>
+            <field name="model">sale.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">relec_sale.pyrax_report_saleorder_pro_forma</field>
+            <field name="report_file">relec_sale.pyrax_report_saleorder_pro_forma</field>
+            <field name="print_report_name">'PRO-FORMA - %s' % (object.name)</field>
+            <field name="binding_model_id" ref="model_sale_order"/>
+            <field name="binding_type">report</field>
+            <field name="groups_id" eval="[Command.link(ref('sale.group_proforma_sales'))]"/>
+        </record>
+        <!-- Domestic QWeb Reports -->
+        <record id="action_report_domestic_pro_forma_invoice" model="ir.actions.report">
+            <field name="name">Domestic - PRO-FORMA Invoice</field>
+            <field name="model">sale.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">relec_sale.pyrax_report_saleorder_domestic_pro_forma</field>
+            <field name="report_file">relec_sale.pyrax_report_saleorder_domestic_pro_forma</field>
+            <field name="print_report_name">'PRO-FORMA - %s' % (object.name)</field>
+            <field name="binding_model_id" ref="model_sale_order"/>
+            <field name="binding_type">report</field>
+            <field name="groups_id" eval="[Command.link(ref('sale.group_proforma_sales'))]"/>
+        </record>
+    </data>
+</odoo>

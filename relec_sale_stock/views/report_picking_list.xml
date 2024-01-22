@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE xml>
+<odoo>
+
+    <template id="report_picking_list_inherit_invoice_details" inherit_id="pyrax_stock.report_picking_list">
+        <xpath expr="//div[@name='div_exporter_ref']" position="before">
+            <div class="col-auto" name="div_invoice">
+                <strong>Invoice No &amp; Date: </strong>
+                <p class="mb0" t-if="o.invoice_no" t-field="o.invoice_no"/>
+                <span class="mt0" t-if="o.invoice_date" t-field="o.invoice_date"/>
+            </div>
+        </xpath>
+    </template>
+
+</odoo>

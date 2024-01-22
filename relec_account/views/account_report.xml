@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- International QWeb Reports -->
+        <!-- <report id="account_commercial_invoices_pyrax"
+            model="account.move"
+            string="Commercial Invoices"
+            report_type="qweb-pdf"
+            name="relec_account.commercial_report_invoice"
+            file="relec_account.commercial_report_invoice"
+            attachment="(object.state == 'posted') and ((object.name or 'INV').replace('/','_')+'.pdf')"
+            print_report_name="(object._get_report_base_filename())"
+            groups="account.group_account_invoice"/> -->
+
+        <!-- <report id="account_tax_invoices_pyrax"
+            model="account.move"
+            string="Tax Invoices" report_type="qweb-pdf"
+            name="relec_account.tax_report_invoice"
+            file="relec_account.tax_report_invoice"
+            attachment="(object.state == 'posted') and ((object.name or 'INV').replace('/','_')+'.pdf')"
+            print_report_name="(object._get_report_base_filename())"
+            groups="account.group_account_invoice"/> -->
+
+        <!-- <report id="account_proforma_invoices_pyrax"
+            model="account.move"
+            string="Revised Proforma Invoices" report_type="qweb-pdf"
+            name="relec_account.proforma_report_invoice"
+            file="relec_account.proforma_report_invoice"
+            attachment="(object.state == 'posted') and ((object.name or 'INV').replace('/','_')+'.pdf')"
+            print_report_name="(object._get_report_base_filename())"
+            groups="account.group_account_invoice"/> -->
+
+        <!-- Domestic QWeb Reports -->
+        <!-- <report
+            id="action_report_domestic_final_invoice"
+            string="Domestic - Invoice"
+            model="account.move"
+            report_type="qweb-pdf"
+            groups="account.group_account_invoice"
+            file="relec_account.relec_report_domestic_final_invoice"
+            name="relec_account.relec_report_domestic_final_invoice"
+            print_report_name="'Invoice - %s' % (object.name)"/> -->
+
+        <!-- <report
+            id="action_report_domestic_revised_pro_forma_invoice"
+            string="Domestic - Revised Proforma Invoice"
+            model="account.move"
+            report_type="qweb-pdf"
+            groups="account.group_account_invoice"
+            file="relec_account.relec_report_domestic_revised_pro_forma"
+            name="relec_account.relec_report_domestic_revised_pro_forma"
+            print_report_name="'Revised PRO-FORMA - %s' % (object.name)"/> -->
+
+        <!-- <report id="account_domestic_tax_invoices_pyrax"
+            model="account.move"
+            string="Domestic - Tax Invoices" report_type="qweb-pdf"
+            name="relec_account.domestic_tax_report_invoice"
+            file="relec_account.domestic_tax_report_invoice"
+            attachment="(object.state == 'posted') and ((object.name or 'INV').replace('/','_')+'.pdf')"
+            print_report_name="(object._get_report_base_filename())"
+            groups="account.group_account_invoice"/> -->
+
+        <!-- These are the changes of Odoo 17 version -->
+        <record id="account_commercial_invoices_pyrax" model="ir.actions.report">
+            <field name="name">Commercial Invoices</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">relec_account.commercial_report_invoice</field>
+            <field name="report_file">relec_account.commercial_report_invoice</field>
+            <field name="print_report_name">(object._get_report_base_filename())</field>
+            <field name="binding_model_id" ref="model_account_move"/>
+            <field name="binding_type">report</field>
+            <field name="groups_id" eval="[Command.link(ref('account.group_account_invoice'))]"/>
+            <field name="attachment">(object.state == 'posted') and ((object.name or 'INV').replace('/','_')+'.pdf')</field>
+        </record>
+        <record id="account_tax_invoices_pyrax" model="ir.actions.report">
+            <field name="name">Tax Invoices</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">relec_account.tax_report_invoice</field>
+            <field name="report_file">relec_account.tax_report_invoice</field>
+            <field name="print_report_name">(object._get_report_base_filename())</field>
+            <field name="binding_model_id" ref="model_account_move"/>
+            <field name="binding_type">report</field>
+            <field name="groups_id" eval="[Command.link(ref('account.group_account_invoice'))]"/>
+            <field name="attachment">(object.state == 'posted') and ((object.name or 'INV').replace('/','_')+'.pdf')</field>
+        </record>
+        <record id="account_proforma_invoices_pyrax" model="ir.actions.report">
+            <field name="name">Revised Proforma Invoices</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">relec_account.proforma_report_invoice</field>
+            <field name="report_file">relec_account.proforma_report_invoice</field>
+            <field name="print_report_name">(object._get_report_base_filename())</field>
+            <field name="binding_model_id" ref="model_account_move"/>
+            <field name="binding_type">report</field>
+            <field name="groups_id" eval="[Command.link(ref('account.group_account_invoice'))]"/>
+            <field name="attachment">(object.state == 'posted') and ((object.name or 'INV').replace('/','_')+'.pdf')</field>
+        </record>
+        <!-- Domestic QWeb Reports -->
+        <record id="action_report_domestic_final_invoice" model="ir.actions.report">
+            <field name="name">Domestic - Invoice</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">relec_account.relec_report_domestic_final_invoice</field>
+            <field name="report_file">relec_account.relec_report_domestic_final_invoice</field>
+            <field name="print_report_name">'Invoice - %s' % (object.name)</field>
+            <field name="binding_model_id" ref="model_account_move"/>
+            <field name="binding_type">report</field>
+            <field name="groups_id" eval="[Command.link(ref('account.group_account_invoice'))]"/>
+        </record>
+        <record id="action_report_domestic_revised_pro_forma_invoice" model="ir.actions.report">
+            <field name="name">Domestic - Revised Proforma Invoice</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">relec_account.relec_report_domestic_revised_pro_forma</field>
+            <field name="report_file">relec_account.relec_report_domestic_revised_pro_forma</field>
+            <field name="print_report_name">'Revised PRO-FORMA - %s' % (object.name)</field>
+            <field name="binding_model_id" ref="model_account_move"/>
+            <field name="binding_type">report</field>
+            <field name="groups_id" eval="[Command.link(ref('account.group_account_invoice'))]"/>
+        </record>
+        <record id="account_domestic_tax_invoices_pyrax" model="ir.actions.report">
+            <field name="name">Domestic - Tax Invoices</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">relec_account.domestic_tax_report_invoice</field>
+            <field name="report_file">relec_account.domestic_tax_report_invoice</field>
+            <field name="print_report_name">(object._get_report_base_filename())</field>
+            <field name="binding_model_id" ref="model_account_move"/>
+            <field name="binding_type">report</field>
+            <field name="groups_id" eval="[Command.link(ref('account.group_account_invoice'))]"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_move_form_inherit_distributed_lines"
+        model="ir.ui.view">
+        <field name="name">account.move.distributed.lines.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@id='aml_tab']" position="after">
+                <page id='distributed_tab'
+                    string="Distributed Lines">
+                    <button name="compute_distributed_lines" invisible="state != 'draft'" type="object" string="Compute Distribute Lines"/>
+                    <field name="distributed_line_ids" readonly="1">
+                        <tree editable="bottom">
+                            <!-- <field name="product_id" optional="show"/> -->
+                            <!-- <field name="name"/> -->
+                            <!-- <field name="hsn_code" optional="show"/> -->
+                            <!-- <field name="quantity"/> -->
+                            <!-- <field name="product_uom_id" string="UoM" groups="uom.group_uom" optional="show"/> -->
+                            <!-- <field name="price_unit" string="Unit Price"/> -->
+                            <!-- <field name="distributed_price_subtotal" string="Subtotal" sum="Total"/> -->
+                            <!-- <field name="currency_id" invisible="1"/> -->
+                            <!-- <field name="distribute_total_signed" invisible="1" sum="Total"/> -->
+                            <!-- <field name="date" invisible="1"/> -->
+                            <!-- <field name="display_type" force_save="1" invisible="1"/> -->
+                        </tree>
+                        <form stirng="Distributed Lines">
+                            <sheet>
+                                <group>
+                                    <group>
+                                       <!-- <field name="product_id"/> -->
+                                       <!-- <field name="name"/> -->
+                                       <!-- <field name="quantity"/> -->
+                                       <!-- <field name="product_uom_id" groups="uom.group_uom"/> -->
+                                       <!-- <field name="price_unit"/> -->
+                                    </group>
+                                    <group>
+                                        <field name="hsn_code"/>
+                                    </group>
+                                </group>
+                            </sheet>
+                        </form>
+                    </field>
+
+                    <separator string="Integrated Taxes"/>
+                    <field name="integrated_tax_ids" readonly="1">
+                       <!-- <tree editable="bottom"> -->
+                           <!-- <field name="name"/> -->
+                           <!-- <field name="taxable_amount" sum="Total"/> -->
+                           <!-- <field name="tax_id"/> -->
+                           <!-- <field name="amount" sum="Total"/> -->
+                           <!-- <field name="currency_id" invisible="1"/></tree> -->
+                        <form stirng="Integrated Taxes">
+                            <sheet>
+                                <group>
+                                    <group>
+                                        <!-- <field name="name"/> -->
+                                        <!-- <field name="taxable_amount"/> -->
+                                    </group>
+                                    <group>
+                                        <!-- <field name="tax_id"/> -->
+                                        <!-- <field name="amount"/> -->
+                                    </group>
+                                </group>
+                            </sheet>
+                        </form>
+                    </field>
+
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

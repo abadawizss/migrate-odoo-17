@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="zen_discount_view_tree" model="ir.ui.view">
+        <field name="name">zen.discount.view.tree</field>
+        <field name="model">zen.discount</field>
+        <field name="arch" type="xml">
+            <tree string="Discount Model" editable="bottom">
+                <field name="group_id" />
+                <field name="minimum_qty"/>
+                <field name="maximum_qty"/>
+                <field name="maximum_discount_percentage"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record id="zen_discount_action" model="ir.actions.act_window">
+        <field name="name">Discount Model</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">zen.discount</field>
+        <field name="view_mode">tree,form,search</field>
+    </record>
+
+    <record id="zen_discount_group_view_tree" model="ir.ui.view">
+        <field name="name">zen.discount.group.view.tree</field>
+        <field name="model">zen.discount.group</field>
+        <field name="arch" type="xml">
+            <tree string="Discount Groups" editable="bottom">
+                <field name="name"/>
+                <field name="discount_group_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="zen_discount_group_action" model="ir.actions.act_window">
+        <field name="name">Discount Groups</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">zen.discount.group</field>
+        <field name="view_mode">tree,form,search</field>
+    </record>
+    <menuitem id="zen_discount_menu" name="Discount Model" action="zen_discount_action" parent="sale.menu_sales_config" groups="base.group_system" sequence="10"/>
+    <menuitem id="zen_discount_group_menu" name="Discount Groups" action="zen_discount_group_action" parent="sale.menu_sales_config" groups="base.group_system" sequence="11"/>
+</odoo>

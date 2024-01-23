@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+        <record id="configuration_view" model="ir.ui.view">
+            <field name="name">indiamart.configuration.form</field>
+            <field name="model">indiamart.configuration</field>
+            <field name="arch" type="xml">
+                <form string="Configuration">
+                    <header>
+                        <field name="state" widget="statusbar"/>
+                        <button name="action_confirm" string="Confirm" type="object" class="oe_highlight" invisible="state != 'draft'"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="mobile_key"/>
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_crm_lead_arpanet">
+            <field name="name">crm.lead.form</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="sender_name"/>
+                </field>
+                <xpath expr="//notebook">
+                    <page string="Indiamart Inquiry">
+                        <group>
+                            <group>
+                                <field name="product_name"/>
+                                <field name="inquiry_type"/>
+                                <field name="enq_call_duration"/>
+                            </group>
+                            <group>
+                                <field name="alt_email"/>
+                                <field name="alt_mobile"/>
+                                <field name="alt_phone"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="configuration_tree" model="ir.ui.view">
+            <field name="name">indiamart.configuration.tree</field>
+            <field name="model">indiamart.configuration</field>
+            <field name="arch" type="xml">
+                <tree string="Configuration">
+                    <field name="name"/>
+                    <field name="mobile_key"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_configuration_indiamart_arpanet" model="ir.actions.act_window">
+            <field name="name">Configuration</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">indiamart.configuration</field>
+           <field name="view_mode">tree,form</field>
+           <field name="target">current</field>
+        </record>
+        <menuitem
+            id="menu_inquiry_configuration"
+            name="Indiamart Configuration"
+            parent="crm.crm_menu_config"
+            groups="sales_team.group_sale_salesman_all_leads,sales_team.group_sale_manager"
+            sequence="20"/>
+
+        <menuitem
+            id="menu_action_indiamart_configuration"
+            action="action_configuration_indiamart_arpanet"
+            parent="zen_indiamart.menu_inquiry_configuration"
+            groups="sales_team.group_sale_salesman_all_leads,sales_team.group_sale_manager"
+            sequence="0"/>
+    </data>
+</odoo>

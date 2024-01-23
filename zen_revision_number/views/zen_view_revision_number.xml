@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="zen_sale_order_inherit_sale_order_view" model="ir.ui.view">
+        <field name="name">zen.sale.order.inherit.sale.order.view</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_title')]" position="replace">
+                <field name="show_revision_number" invisible="1" />
+                <div>
+                    <h2>
+                        <field name="name" readonly="1" class="oe_inline"/>
+                        <span invisible="not show_revision_number"> R<field name="revision_number" readonly="1" class="oe_inline" />
+                        </span>
+                    </h2>
+                </div>
+            </xpath>
+            <!-- Revision Date-->
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="revision_date" invisible="not show_revision_number" readonly="1"/>
+            </xpath>
+            <!-- End Revision Date-->
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_attendance_tree_inherit_view_zen" model="ir.ui.view">
+        <field name="name">hr.attendance.tree.inherit</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.view_attendance_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='overtime_hours']" position="after">
+                <field name="check_in_lat" optional="show"/>
+                <field name="check_out_lat" optional="show"/>
+                <field name="check_in_long" optional="show"/>
+                <field name="check_out_long" optional="show"/>
+                <field name="address" optional="show"/>
+                <field name="location_link" optional="show"/>
+                <field name="face_image" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_attendance_form_inherit_view_zen" model="ir.ui.view">
+        <field name="name">hr.attendance.form.view.form.inherit</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='check_out']" position="after">
+                <field name="check_in_lat"/>
+                <field name="check_out_lat"/>
+                <field name="check_in_long"/>
+                <field name="check_out_long"/>
+                <field name="address"/>
+                <field name="location_link"/>
+                <field name="face_image"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

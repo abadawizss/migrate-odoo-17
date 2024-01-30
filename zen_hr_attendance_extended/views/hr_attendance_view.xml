@@ -12,7 +12,9 @@
                 <field name="check_out_long" optional="show"/>
                 <field name="address" optional="show"/>
                 <field name="location_link" optional="show"/>
-                <field name="face_image" optional="show"/>
+                <field name="face_image" invisible="1"/>
+                <field name="work_area_status_in" optional="hide"/>
+                <field name="work_area_status_out" optional="hide"/>
             </xpath>
         </field>
     </record>
@@ -29,7 +31,9 @@
                 <field name="check_out_long"/>
                 <field name="address"/>
                 <field name="location_link"/>
-                <field name="face_image"/>
+                <field name="face_image" invisible="1"/>
+                <field name="work_area_status_in"/>
+                <field name="work_area_status_out"/>
             </xpath>
         </field>
     </record>

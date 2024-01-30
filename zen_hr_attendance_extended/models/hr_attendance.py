@@ -11,3 +11,5 @@ class HrAttendance(models.Model):
     address = fields.Text(string="Address")
     location_link = fields.Text(string="Location Link")
     face_image = fields.Image()
+    work_area_status_in = fields.Boolean(default=True)
+    work_area_status_out = fields.Boolean()

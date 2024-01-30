@@ -12,8 +12,8 @@ class HrAttendance(models.Model):
     address = fields.Text(string="Address", compute='get_address_from_maps', readonly=True)
     location_link = fields.Char(string="Location Link", readonly=True)
     face_image = fields.Image()
-    work_area_status_in = fields.Boolean(default=True)
-    work_area_status_out = fields.Boolean(default=True)
+    work_area_status_in = fields.Boolean(default=True, readonly=True)
+    work_area_status_out = fields.Boolean(default=True, readonly=True)
 
     @api.depends('check_in_lat','check_in_long')
     def get_address_from_maps(self):

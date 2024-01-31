@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Inherit the Quotation PDF report -->
+        <template id="zen_freight_report_saleorder_custom_document_inherit" inherit_id="zen_report_sale_order.zen_report_saleorder_custom_document_inherit">
+            <xpath expr="//tr[@t-if='has_rounding']" position="after">
+                <tr class="border-black o_subtotal" style="">
+                    <td>
+                        <strong>Freight Charges</strong>
+                    </td>
+                    <td class="text-end">
+                        <span t-field="doc.freight_charges" t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                    </td>
+                </tr>
+            </xpath>
+        </template>
+    </data>
+</odoo>

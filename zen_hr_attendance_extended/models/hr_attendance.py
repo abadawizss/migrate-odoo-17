@@ -15,11 +15,21 @@ class HrAttendance(models.Model):
     work_area_status_in = fields.Boolean(default=True, readonly=True)
     work_area_status_out = fields.Boolean(default=True, readonly=True)
 
-    @api.depends('check_in_lat','check_in_long')
-    def get_address_from_maps(self):
-        geolocator = Nominatim(user_agent='my-app')
+    # @api.depends('check_in_lat','check_in_long')
+    # def get_address_from_maps(self):
+    #     geolocator = Nominatim(user_agent='my-app')
         # for rec in self:
         #     if rec.check_in_lat and rec.check_in_long:
                 # rec.address = geolocator.reverse((rec.check_in_lat, rec.check_in_long), language='en').address
                 # rec.address = geolocator.reverse(str(rec.check_in_lat) + ', ' + str(rec.check_in_long)).address
                 # rec.location_link = f"https://www.google.com/maps/search/?api=1&query={rec.check_in_lat},{rec.check_in_long}"
+
+    @api.depends('check_in_lat','check_in_long')
+    def get_address_from_maps(self):
+        geolocator = Nominatim(user_agent='my-app')
+        for rec in self:
+            rec.address = ''
+            if rec.check_in_lat !=0 and rec.check_in_long != 0:
+                # rec.address = geolocator.reverse((rec.check_in_lat, rec.check_in_long), language='en').address
+                rec.address = geolocator.reverse(str(rec.check_in_lat) + ', ' + str(rec.check_in_long)).address
+                rec.location_link = f"https://www.google.com/maps/search/?api=1&query={rec.check_in_lat},{rec.check_in_long}"

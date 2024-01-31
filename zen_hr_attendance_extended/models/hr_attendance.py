@@ -9,7 +9,7 @@ class HrAttendance(models.Model):
     check_out_lat = fields.Float(string="Check out Lattitude", digits=(10, 7), readonly=True)
     check_in_long = fields.Float(string="Check in Longitude", digits=(10, 7), readonly=True)
     check_out_long = fields.Float(string="Check out Longitude", digits=(10, 7), readonly=True)
-    address = fields.Text(string="Address", compute='get_address_in_from_maps')
+    address = fields.Text(string="Address", compute='get_address_from_maps')
     out_address = fields.Text(string="Out Address", compute='get_address_out_from_maps')
     location_url = fields.Char(string="Location url", readonly=True)
     out_location_url = fields.Char(string="Out Location url", readonly=True)
@@ -28,7 +28,7 @@ class HrAttendance(models.Model):
                 rec.location_url = f"https://www.google.com/maps/search/?api=1&query={rec.check_in_lat},{rec.check_in_long}"
 
     @api.depends('check_out_lat','check_out_long')
-    def get_out_address_from_maps(self):
+    def get_address_out_from_maps(self):
         geolocator = Nominatim(user_agent='my-app')
         for rec in self:
             rec.out_address = ''

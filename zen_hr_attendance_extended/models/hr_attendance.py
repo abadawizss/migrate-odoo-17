@@ -9,7 +9,7 @@ class HrAttendance(models.Model):
     check_out_lat = fields.Float(string="Check out Lattitude", digits=(10, 7), readonly=True)
     check_in_long = fields.Float(string="Check in Longitude", digits=(10, 7), readonly=True)
     check_out_long = fields.Float(string="Check out Longitude", digits=(10, 7), readonly=True)
-    address = fields.Text(string="Address", compute='get_address_from_maps', readonly=True)
+    address = fields.Text(string="Address", compute='get_address_from_maps')
     location_link = fields.Char(string="Location Link", readonly=True)
     face_image = fields.Image()
     work_area_status_in = fields.Boolean(default=True, readonly=True)

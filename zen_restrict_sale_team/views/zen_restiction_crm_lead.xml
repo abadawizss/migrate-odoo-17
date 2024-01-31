@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+        <!-- Tampilan kanban untuk model crm.lead (inherit dari crm.lead) -->
+        <record id="view_crm_lead_kanban_inherit" model="ir.ui.view">
+            <field name="name">crm.lead.kanban.inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_kanban_view_leads"/>
+            <field name="arch" type="xml">
+                <!-- Menambahkan field team_id ke dalam tampilan kanban -->
+                <xpath expr="//field[@name='recurring_revenue_monthly']" position="after">
+                    <field name="team_id" invisible="1" />
+                </xpath>
+                <!-- Menambahkan domain filter berdasarkan Sales Team -->
+                <xpath expr="//kanban" position="attributes">
+                    <attribute name="domain">[('team_id', 'in', user.sale_team_id.ids)]</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+
+</odoo>

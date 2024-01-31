@@ -1,0 +1,28 @@
+<odoo>
+    <record id="zen_crm_case_form_view_salesteams_opportunity" model="ir.actions.act_window">
+        <field name="name">Opportunities</field>
+        <field name="res_model">crm.lead</field>
+        <field name="view_mode">kanban,tree,graph,form,calendar,pivot</field>
+        <field name="domain">[('type','=','opportunity')]</field>
+        <field name="view_id" ref="crm.crm_case_kanban_view_leads"/>
+        <field name="search_view_id" ref="crm.view_crm_case_opportunities_filter"/>
+        <field name="context">{
+                'search_default_assigned_to_me': 1,
+                'default_type': 'opportunity',
+                'default_user_id': uid,
+            }
+        </field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new lead
+            </p><p>
+                Odoo helps you keep track of your sales pipeline to follow
+                up potential sales and better forecast your future revenues.
+            </p><p>
+                You will be able to plan meetings and phone calls from
+                opportunities, convert them into quotations, attach related
+                documents, track all discussions, and much more.
+            </p>
+        </field>
+    </record>
+</odoo>

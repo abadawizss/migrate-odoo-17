@@ -18,8 +18,8 @@ class HrAttendance(models.Model):
     @api.depends('check_in_lat','check_in_long')
     def get_address_from_maps(self):
         geolocator = Nominatim(user_agent='my-app')
-        for rec in self:
-            if rec.check_in_lat and rec.check_in_long:
+        # for rec in self:
+        #     if rec.check_in_lat and rec.check_in_long:
                 # rec.address = geolocator.reverse((rec.check_in_lat, rec.check_in_long), language='en').address
                 # rec.address = geolocator.reverse(str(rec.check_in_lat) + ', ' + str(rec.check_in_long)).address
-                rec.location_link = f"https://www.google.com/maps/search/?api=1&query={rec.check_in_lat},{rec.check_in_long}"
+                # rec.location_link = f"https://www.google.com/maps/search/?api=1&query={rec.check_in_lat},{rec.check_in_long}"

@@ -30,6 +30,6 @@ class HrAttendance(models.Model):
         for rec in self:
             rec.address = ''
             if rec.check_in_lat !=0 and rec.check_in_long != 0:
-                # rec.address = geolocator.reverse((rec.check_in_lat, rec.check_in_long), language='en').address
-                rec.address = geolocator.reverse(str(rec.check_in_lat) + ', ' + str(rec.check_in_long)).address
+                rec.address = geolocator.reverse((rec.check_in_lat, rec.check_in_long), language='en').address
+                # rec.address = geolocator.reverse(str(rec.check_in_lat) + ', ' + str(rec.check_in_long)).address
                 rec.location_link = f"https://www.google.com/maps/search/?api=1&query={rec.check_in_lat},{rec.check_in_long}"

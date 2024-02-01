@@ -33,7 +33,7 @@
         <field name="arch" type="xml">
             <xpath expr="//group[@name='identification_group']" position="inside">
                 <field name="device"/>
-                <field name="face_image"/>
+                <field name="face_image" widget="image"/>
             </xpath>
         </field>
     </record>

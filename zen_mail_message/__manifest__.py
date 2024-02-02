@@ -13,7 +13,7 @@
         'sale'
     ],
     'data': [
-        # 'views/zen_configuration_chatter.xml'
+        'views/zen_configuration_chatter.xml'
     ],
     'installable': True,
     'application': True,

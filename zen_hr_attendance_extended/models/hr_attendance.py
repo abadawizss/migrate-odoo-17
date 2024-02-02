@@ -32,7 +32,7 @@ class HrAttendance(models.Model):
         geolocator = Nominatim(user_agent='my-app')
         for rec in self:
             rec.out_address = ''
-            if rec.check_out_lat !=0 and rec.check_out_long != 0:
+            if rec.check_out_lat !=0 or rec.check_out_lat != False and rec.check_out_long != 0 or rec.check_out_long != False:
                 rec.out_address = geolocator.reverse((rec.check_out_lat, rec.check_out_long), language='en').address
                 # rec.address = geolocator.reverse(str(rec.check_in_lat) + ', ' + str(rec.check_in_long)).address
                 rec.out_location_url = f"https://www.google.com/maps/search/?api=1&query={rec.check_out_lat},{rec.check_out_long}"

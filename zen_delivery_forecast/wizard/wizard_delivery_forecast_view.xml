@@ -1,0 +1,51 @@
+<odoo>
+    <data>
+        <record id="delivery_forecast_report" model="ir.ui.view">
+            <field name="name">Delivery Forecast Report</field>
+            <field name="model">wizard.delivery.forecast</field>
+            <field name="arch" type="xml">
+                <form string="Delivery Forecast Report">
+                    <group>
+                        <group>
+                            <field name="start_date" required="1"/>
+                        </group>
+                        <group>
+                            <field name="end_date" required="1"/>
+                        </group>
+                    </group>
+                    <group colspan="4">
+                        <field name="report_type"/>
+                    </group>
+                    <footer>
+                        <button name="show_report" string="Show Report" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="delivery_forecast_report_action" model="ir.actions.act_window">
+            <field name="name">Delivery Forecast Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wizard.delivery.forecast</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_sale_report"
+            name="Reporting"
+            parent="sale.sale_menu_root"
+            sequence="40"/>
+        <menuitem id="sale.menu_sale_report_analysis"
+            name="Sales Analysis"
+            action="sale.action_order_report_all"
+            groups="sales_team.group_sale_manager"
+            parent="sale.menu_sale_report"
+            sequence="1"/>
+        <menuitem id="menu_sale_report_delivery_forecast"
+            name="Delivery Forecast"
+            action="zen_delivery_forecast.delivery_forecast_report_action"
+            parent="sale.menu_sale_report"
+            sequence="2"/>
+            
+    </data>
+</odoo>

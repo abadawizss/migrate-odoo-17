@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="delivery_forecast_pdf">
+        <t t-call="web.html_container">
+            <t t-call="web.internal_layout">
+                <div class="page">
+                    <h3 class="text-center">Delivery Forecast Report</h3>
+                    <table class="table table-bordered" style="border-color: black;">
+                        <thead>
+                            <tr>
+                                <th colspan="12" style="text-align: center; font-size: 14px;">
+                                    <span t-esc="periode"/>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th style="font-size: 14px; border-color: black;">
+                                    <strong>#</strong>
+                                </th>
+                                <th style="font-size: 14px; border-color: black;">
+                                    <strong>Product Name</strong>
+                                </th>
+                                <th style="font-size: 14px; border-color: black;">
+                                    <strong>Aggregated Quantity</strong>
+                                </th>
+                                <th style="font-size: 14px; border-color: black;" class="text-center">
+                                    <strong>Dealer Name</strong>
+                                </th>
+                                <th style="font-size: 14px; border-color: black;" class="text-center">
+                                    <strong>Date Scheduled</strong>
+                                </th>
+                                <th style="font-size: 14px; border-color: black;" class="text-center">
+                                    <strong>Quantity Scheduled</strong>
+                                </th>
+                                <th style="font-size: 14px; border-color: black;" class="text-center">
+                                    <strong>Total Delayed Count</strong>
+                                </th>
+                                <th style="font-size: 14px; border-color: black;" class="text-center">
+                                    <strong>Total On-Track Count</strong>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="i" t-value="1"/>
+                            <t t-foreach="vals" t-as="report">
+                                <tr>
+                                    <td style="font-size: 16px; border-color: black;">
+                                        <span t-esc="report['no']"/>
+                                    </td>
+                                    <td style="font-size: 16px; border-color: black;">
+                                        <span t-esc="report['product_name']"/>
+                                    </td>
+                                    <td style="font-size: 16px; border-color: black;" class="text-center">
+                                        <span t-esc="report['aggregated_quantity']"/>
+                                    </td>
+                                    <td style="font-size: 16px; border-color: black;" class="text-center">
+                                        <span t-esc="report['dealer_name']"/>
+                                    </td>
+                                    <td style="font-size: 16px; border-color: black;" class="text-center">
+                                        <span t-esc="report['date_schedule']"/>
+                                    </td>
+                                    <td style="font-size: 16px; border-color: black;" class="text-center">
+                                        <span t-esc="report['qty_schedule']"/>
+                                    </td>
+                                    <td style="font-size: 16px; border-color: black;" class="text-center">
+                                        <span t-esc="report['total_delayed']"/>
+                                    </td>
+                                    <td style="font-size: 16px; border-color: black;" class="text-center">
+                                        <span t-esc="report['total_ontrack']"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <record id="delivery_report_view_tree" model="ir.ui.view">
+        <field name="name">delivery_report.view.tree</field>
+        <field name="model">report.zen_delivery_forecast.delivery.forecast.view</field>
+        <field name="arch" type="xml">
+            <tree create="false" edit="false" delete="false">
+                <field name="product_name" />
+                <field name="aggregated_quantity" />
+                <field name="dealer_name" />
+                <field name="date_schedule" />
+                <field name="qty_schedule" />
+                <field name="total_delayed" />
+                <field name="total_ontrack" />
+            </tree>
+        </field>
+    </record>
+    <record id="delivery_report_view_search_view" model="ir.ui.view">
+        <field name="name">delivery.report.view.search.view</field>
+        <field name="model">report.zen_delivery_forecast.delivery.forecast.view</field>
+        <field name="arch" type="xml">
+            <search string="Delivery Forecast Report">
+                <field name="dealer_name"/>
+                <field name="product_name"/>
+                <group expand="0" string="Group by...">
+                    <filter name="group_by_dealer_name" context="{'group_by':'dealer_name'}"/>
+                    <filter name="group_by_product_name" context="{'group_by':'product_name'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="delivery_report_view_action" model="ir.actions.act_window">
+        <field name="name">Delivery Forecast Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">report.zen_delivery_forecast.delivery.forecast.view</field>
+        <!--  <field name="view_mode">tree,form,search</field>  -->
+        <field name="search_view_id" ref="delivery_report_view_search_view"/>
+        <field name="context">{'search_default_group_by_dealer_name': 1 ,'search_default_group_by_product_name': 1}</field>
+        <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'tree', 'view_id': ref('zen_delivery_forecast.delivery_report_view_tree')})]"/>
+    </record>
+</odoo>

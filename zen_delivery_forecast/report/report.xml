@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_delivery_forecast_pdf" model="ir.actions.report">
+        <field name="name">Delivery Forecast PDF</field>
+        <field name="model">zen.attendance.report.monthly.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">zen_delivery_forecast.delivery_forecast_pdf</field>
+        <field name="report_file">zen_delivery_forecast.delivery_forecast_pdf</field>
+        <field name="print_report_name">Delivery Forecast Report</field>
+        <field name="binding_model_id" ref="model_wizard_delivery_forecast"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

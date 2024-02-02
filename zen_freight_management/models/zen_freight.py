@@ -5,74 +5,37 @@ class ZenFreightSaleOrderZen(models.Model):
     _inherit = "sale.order"
 
     freight_charges = fields.Monetary(string='Freight Charges', readonly=True, store=True, compute='_amount_all')
+    exclude = fields.Boolean('Exclude Freight', default=False)
 
-    # @api.depends('order_line.price_subtotal', 'order_line.price_tax', 'order_line.price_total', 'freight_charges')
-    # def _compute_amounts(self):
-    #     for order in self:
-    #         order_lines = order.order_line.filtered(lambda x: not x.display_type)
-    #         if order.company_id.tax_calculation_rounding_method == 'round_globally':
-    #             tax_results = self.env['account.tax']._compute_taxes([
-    #                 line._convert_to_tax_base_line_dict()
-    #                 for line in order_lines
-    #             ])
-    #             totals = tax_results['totals']
-    #             amount_untaxed = totals.get(order.currency_id, {}).get('amount_untaxed', 0.0)
-    #             amount_tax = totals.get(order.currency_id, {}).get('amount_tax', 0.0)
-    #             # Round amount_tax to the nearest whole number
-    #             amount_tax = round(amount_tax, 0)  # Rounding to 0 decimal places
-
-    #             #FREIGHT CHARGE
-    #             totals[order.currency_id]['freight_charges'] = totals.get(order.currency_id, {}).get('freight_charges', 0.0)
-    #             # Calculate FREIGHT CHARGE and add it to totals
-    #             if amount_untaxed > 200000:
-    #                 totals[order.currency_id]['freight_charges'] = 0.0  # Pengiriman gratis jika pesanan melebihi 2 lakhs
-    #             elif 31000 <= amount_untaxed <= 200000:
-    #                 freight_charges = max(amount_untaxed * 0.0113, 350)
-    #                 freight_charges = round(freight_charges, 0)
-    #                 totals[order.currency_id]['freight_charges'] = freight_charges
-    #             else:
-    #                 totals[order.currency_id]['freight_charges'] = 0.0  # Pengiriman gratis jika pesanan kurang dari 31000
-    #         else:
-    #             amount_untaxed = sum(order_lines.mapped('price_subtotal'))
-    #             amount_tax = sum(order_lines.mapped('price_tax'))
-
-    #             #FREIGHT CHARGE
-    #             totals[order.currency_id]['freight_charges'] = totals.get(order.currency_id, {}).get('freight_charges', 0.0)
-    #             # Calculate FREIGHT CHARGE and add it to totals
-    #             if amount_untaxed > 200000:
-    #                 totals[order.currency_id]['freight_charges'] = 0.0  # Pengiriman gratis jika pesanan melebihi 2 lakhs
-    #             elif 31000 <= amount_untaxed <= 200000:
-    #                 freight_charges = max(amount_untaxed * 0.0113, 350)
-    #                 freight_charges = round(freight_charges, 0)
-    #                 totals[order.currency_id]['freight_charges'] = freight_charges
-    #             else:
-    #                 totals[order.currency_id]['freight_charges'] = 0.0  # Pengiriman gratis jika pesanan kurang dari 31000
-
-    #         # Format amount_tax as a string with two trailing zeros
-    #         amount_tax_str = '{:.2f}'.format(amount_tax)
-
-    #         order.amount_untaxed = amount_untaxed
-    #         order.freight_charges = totals[order.currency_id].get('freight_charges', 0.0)
-    #         order.amount_tax = float(amount_tax_str)  # Convert the formatted string back to float
-    #         order.amount_total = order.amount_untaxed + order.amount_tax
-
-    @api.depends('order_line.price_total', 'freight_charges')
+    @api.depends('order_line.price_total', 'freight_charges', 'exclude')
     def _amount_all(self):
-        """ Compute the total amounts of the SO. """
+        """
+        Compute the total amounts of the SO.
+        """
         for order in self:
             amount_untaxed = amount_tax = 0.0
+            freight_charges = 0.0
             for line in order.order_line:
                 amount_untaxed += line.price_subtotal
                 amount_tax += line.price_tax
-            if amount_untaxed > 200000:
-                freight_charges = 0.0
-            elif 31000 <= amount_untaxed <= 200000:
-                freight_charges = max(amount_untaxed * 0.0113, 350)
-                freight_charges = round(freight_charges, 0)
-            else:
-                freight_charges = 0.0
+            if amount_untaxed != 0:
+                active_approval_freight= self.env['ir.config_parameter'].sudo().get_param('zen_freight_management.activate_freight_charges')
+                if active_approval_freight:
+                    if not order.exclude:
+                        if amount_untaxed >= 200000:
+                            freight_charges = 0.0
+                        elif amount_untaxed <= 200000:
+                            freight_charges = max(amount_untaxed * 0.0113, 400)
+                            freight_charges = round(freight_charges, 0)
+                        else:
+                            freight_charges = 0.0
+                    else:
+                        freight_charges = 0.0
             order.update({
-                'freight_charges': freight_charges
+                'freight_charges': freight_charges,
+                'amount_untaxed': amount_untaxed + freight_charges,
+                'amount_tax': amount_tax,
+                'amount_total': amount_untaxed + amount_tax,
             })
 
 
@@ -220,3 +183,32 @@ class AccountMoveInherit(models.Model):
                     move.invoice_payment_state = 'paid'
             else:
                 move.invoice_payment_state = 'not_paid'
+
+
+class ConfigurationFreight(models.TransientModel):
+    _inherit = 'res.config.settings'
+
+    activate_freight_charges = fields.Boolean('Activate Approval Freight Charges', config_parameter="zen_freight_management.activate_freight_charges")
+    user_approval_freight_charges = fields.Many2many('hr.employee', 'res_config_users_approval_freight_charges',string='Payment Terms Approval Authorities', compute="_compute_approval_authority_freight_charges", inverse="_inverse_approval_authority_freight_charges")
+    user_approval_list_freight_charges = fields.Char('Payment Terms Approval Authorities', config_parameter="zen_freight_management.user_approval_list_freight_charges")
+    
+    @api.depends('user_approval_list_freight_charges')
+    def _compute_approval_authority_freight_charges(self):
+        """ As config_parameters does not accept m2m field,
+            we get the fields back from the Char config field, to ease the configuration in config panel """
+        for setting in self:
+            if setting.user_approval_list_freight_charges:
+                names = setting.user_approval_list_freight_charges.split(',')
+                employee_ids = [int(id_str) for id_str in names if id_str.strip().isdigit()]
+                setting.user_approval_freight_charges = self.env['hr.employee'].browse(employee_ids)
+            else:
+                setting.user_approval_freight_charges = None
+    
+    def _inverse_approval_authority_freight_charges(self):
+        """ As config_parameters does not accept m2m field,
+            we store the fields with a comma separated string into a Char config field """
+        for setting in self:
+            if setting.user_approval_freight_charges:
+                setting.user_approval_list_freight_charges = ','.join(str(e.id) for e in self.user_approval)
+            else:
+                setting.user_approval_list_freight_charges = ''

@@ -10,18 +10,17 @@ class CrmLeadLost(models.TransientModel):
     _description = 'Get Disqualification Reason'
 
     disqualify_reason_id = fields.Many2one('zen.crm.disqualify.reason', string='Disqualification Reason')
-    disqualify_feedback = fields.Html('Closing Note', sanitize=True)
+    disqualify_feedback = fields.Text('Closing Note', sanitize=True, required=True)
 
     def action_disqualify_reason_apply(self):
         self.ensure_one()
         leads = self.env['crm.lead'].browse(self.env.context.get('active_ids'))
-        if not is_html_empty(self.disqualify_feedback):
-            leads._track_set_log_message(
-                '<div style="margin-bottom: 4px;"><p>%s:</p>%s<br /></div>' % (
-                    _('Disqualified Comment'),
-                    self.disqualify_feedback
-                )
+        leads._track_set_log_message(
+            '<div style="margin-bottom: 4px;"><p>%s:</p>%s<br /></div>' % (
+                _('Disqualified Comment'),
+                f"{self.disqualify_reason_id.name} - {self.disqualify_feedback}"
             )
+        )
         stage = self.env['crm.stage'].search([('name','ilike', 'Disqualified')],limit=1)
         if stage:
             stage_disqualified = stage

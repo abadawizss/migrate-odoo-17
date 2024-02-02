@@ -5,10 +5,10 @@ from geopy.geocoders import Nominatim
 class HrAttendance(models.Model):
     _inherit = 'hr.attendance'
 
-    check_in_lat = fields.Float(string="Check in Lattitude", digits=(10, 7), readonly=True)
-    check_out_lat = fields.Float(string="Check out Lattitude", digits=(10, 7), readonly=True)
-    check_in_long = fields.Float(string="Check in Longitude", digits=(10, 7), readonly=True)
-    check_out_long = fields.Float(string="Check out Longitude", digits=(10, 7), readonly=True)
+    check_in_lat = fields.Float(string="Check in Lattitude", default=0.0, digits=(10, 7), readonly=True)
+    check_out_lat = fields.Float(string="Check out Lattitude", default=0.0, digits=(10, 7), readonly=True)
+    check_in_long = fields.Float(string="Check in Longitude", default=0.0, digits=(10, 7), readonly=True)
+    check_out_long = fields.Float(string="Check out Longitude", default=0.0, digits=(10, 7), readonly=True)
     address = fields.Text(string="Address", compute='get_address_from_maps')
     out_address = fields.Text(string="Out Address", compute='get_address_out_from_maps')
     location_url = fields.Char(string="Location url", readonly=True)

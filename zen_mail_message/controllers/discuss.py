@@ -1,4 +1,4 @@
-from odoo import fields, http, SUPERUSER_ID, _
+from odoo import http, SUPERUSER_ID, _
 from odoo.http import request
 import markupsafe
 # from odoo.addons.mail.controllers.discuss import DiscussController
@@ -22,7 +22,6 @@ class ThreadController(http.Controller):
                                     'name': follower.partner_id.name,
                                     'email': follower.partner_id.email
                                 })
-
                             modified_body_email = body_email_old
                             if partner_ids:
                                 table = '<br/><br/><br/><span style="font-style: italic">Reply to this email will be delivered to : </span><ul>'
@@ -42,7 +41,6 @@ class ThreadController(http.Controller):
                                     'name': follower.partner_id.name,
                                     'email': follower.partner_id.email
                                 })
-
                             modified_body_email = body_email_old
                             if partner_ids:
                                 table = '<br/><br/><br/><span style="font-style: italic">Reply to this email will be delivered to : </span><ul>'
@@ -62,7 +60,6 @@ class ThreadController(http.Controller):
                                     'name': follower.partner_id.name,
                                     'email': follower.partner_id.email
                                 })
-
                             modified_body_email = body_email_old
                             if partner_ids:
                                 table = '<br/><br/><br/><span style="font-style: italic">Reply to this email will be delivered to : </span><ul>'

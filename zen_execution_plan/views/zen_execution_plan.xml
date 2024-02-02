@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="zen_sale_order_inherit_sale_order_view3" model="ir.ui.view">
+        <field name="name">zen.sale.order.inherit.sale.order.view3</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="zen_approval.zen_sale_order_inherit_sale_order_view2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='exceptions']" position="after">
+                <page string="Execution Plan" name="execution_plan">
+                    <field name="execution_ids" mode="tree,kanban" readonly="state not in ('draft')">
+                        <tree string="Execution Plan" name="execution_plan_tree" editable="bottom">
+                            <field name="product_id"/>
+                            <field name="qty"/>
+                            <field name="date_schedule"/>
+                            <field name="status" readonly="1" widget="badge" decoration-danger="status == 'cancelled'" decoration-warning="status == 'delayed'" decoration-success="status == 'scheduled'"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

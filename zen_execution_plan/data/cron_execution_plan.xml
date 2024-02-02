@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+        <record id="ir_cron_reminder_execution_plan_quotation" model="ir.cron">
+            <field name="name">Reminder Execution Plan Quotation</field>
+            <field name="model_id" ref="model_zen_sale_execution"/>
+            <field name="user_id" ref="base.user_admin"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="code">model.send_reminder_execution_plan()</field>
+        </record>
+    </data>
+</odoo>

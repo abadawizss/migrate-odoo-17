@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="email_template_execution_plan" model="mail.template">
+            <field name="name">Sales: Send Reminder Execution Plan</field>
+            <field name="model_id" ref="zen_execution_plan.model_zen_sale_execution"/>
+            <field name="subject">Reminder Execution Plan</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                            Dear Sales Team,
+                        <br/>
+                        <br/>
+                           I hope this email finds you well. I am writing to inform you that the scheduled execution date for an order with Sales Order number <p t-out="object.order_id.name or ''"></p> has been postponed. Due to unforeseen circumstances, we need to adjust the execution plan.
+                        <br/>
+                        If you have any questions or concerns regarding this delay or need any further information, please don't hesitate to reach out to the concerned team.
+                        <br/>
+                        Your cooperation and understanding during this adjustment are highly appreciated. Let's work together to ensure the success of the sale order execution.
+                        <br/>
+                        Thank you for your continued support.
+                    </p>
+                </div>
+            </field>
+        </record>
+
+</odoo>

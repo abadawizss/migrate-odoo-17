@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form_approval_discount" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.approval.discount</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form//app[@data-string='Sales']" position="inside">
+                <block title="Sales Order Discount Approval">
+                    <setting>
+                        <field name="activate_approval_discount"/>
+                        <div class="text-muted">
+                            <span>Activate Approval Discount </span><br />
+                            <div class="mt8" invisible="activate_approval_discount ==False">
+                            <label for="percentage_discount" string="End User Discount Limit (%)"/>
+                            <div>
+                                <field name="percentage_discount" class="oe_inline"/>
+                                <span>%</span>
+                            </div>
+                            <label for="minimum_approval" string="Minimum Approvals Required"/>
+                            <div>
+                                <field name="minimum_approval" class="oe_inline" required="activate_approval_discount==True"/>
+                            </div>
+                            <label for="user_approval" string="Discount Approval Authority"/>
+                                <div>
+                                    <field name="user_approval" widget="many2many_tags" force_save="1" required="activate_approval_discount==True"/>
+                                    <field name="user_approval_list" invisible="1"/>
+                                </div>
+                            </div>
+                        </div>
+                    </setting>
+                </block>
+            </xpath>
+            <xpath expr="//form//app[@data-string='Sales']" position="inside">
+                <block title="Payment Terms Approval Exclusion">
+                    <setting>
+                        <field name="activate_approval_payment_term"/>
+                        <div class="text-muted">
+                            <span>Activate Payment Terms Approval Exclusion</span><br />
+                            <div class="mt8" invisible="activate_approval_payment_term == False">
+                            <label for="payment_term" string="Payment Terms"/>
+                                <div>
+                                    <field name="payment_term" widget="many2many_tags" force_save="1" required="activate_approval_payment_term == True"/>
+                                    <field name="payment_term_list" invisible="1"/>
+                                </div>
+                            <label for="user_approval_payment_term" string="Payment Terms Approval Authorities"/>
+                            <div>
+                                <field name="user_approval_payment_term" widget="many2many_tags" force_save="1" required="activate_approval_payment_term == True"/>
+                                <field name="user_approval_list_payment_term" invisible="1"/>
+                            </div>
+                            <label for="minimum_approval_payment_term" string="Minimum Approvals Required"/>
+                            <div>
+                                <field name="minimum_approval_payment_term" class="oe_inline" required="activate_approval_payment_term == True"/>
+                            </div>
+                        </div>
+                        </div>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

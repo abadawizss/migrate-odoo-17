@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<odoo>
+        <record id="sale_order_mention_reason_view" model="ir.ui.view">
+            <field name="name">sale.order.mention.reason.view</field>
+            <field name="model">sale.order.mention.reason</field>
+            <field name="arch" type="xml">
+                <form string="Mention Reason Extra Discount And Payment Term">
+                    <field name="remarks" placeholder="What Reason Extra Discount, Payment Term, and Freight Carges ?"/>
+                    <footer>
+                        <button name="action_mention" string="Submit" type="object" class="btn-primary" data-hotkey="q"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="z"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="sale_order_reject_exception_view" model="ir.ui.view">
+            <field name="name">sale.order.reject.exception.view</field>
+            <field name="model">reject.exception</field>
+            <field name="arch" type="xml">
+                <form string="Reason Reject Exceptions">
+                    <field name="remarks" placeholder="What Reason Reject Exceptions ?"/>
+                    <footer>
+                        <button name="action_reject" string="Submit" type="object" class="btn-primary" data-hotkey="q"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="z"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+</odoo>

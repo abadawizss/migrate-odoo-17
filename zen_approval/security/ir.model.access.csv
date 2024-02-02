@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_zen_sale_order_exception_all,access.zen.sale.order.exception.all,model_zen_sale_order_exception,,1,1,1,1
+access_zen_sale_order_mention,access.zen.sale.order.mention,model_sale_order_mention_reason,,1,1,1,1
+access_zen_sale_order_reject_exception,access.zen.sale.order.reject.exception,model_reject_exception,,1,1,1,1

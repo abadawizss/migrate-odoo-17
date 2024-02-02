@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="payment_tem_mandatory_view" model="ir.ui.view">
+            <field name="name">payment_tem_mandatory_view</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='payment_term_id']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+            </field>
+    </record>
+    <record id="zen_sale_order_inherit_sale_order_view2" model="ir.ui.view">
+        <field name="name">zen.sale.order.inherit.sale.order.view2</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='customer_signature']" position="after">
+                <page string="Exceptions" name="exceptions">
+                    <field name="exception_ids" mode="tree,kanban" readonly="1">
+                        <tree string="Exceptions" name="exception_tree" editable="bottom">
+                            <field name="approved_discount" invisible="1"/>
+                            <field name="approved_payment" invisible="1"/>
+                            <field name="user_approved_discount" invisible="1"/>
+                            <field name="user_approved_payment" invisible="1"/>
+                            <field name="request_date" />
+                            <field name="exception_name"/>
+                            <field name="normal" />
+                            <field name="current"/>
+                            <field name="amount" string="Amount"/>
+                            <field name="status" readonly="1" widget="badge" decoration-danger="status == 'reject'" decoration-warning="status == 'pending'" decoration-success="status == 'approve'" decoration-default="status == 'modified'" />
+                            
+                            <button name="action_exception_approve" class="btn-primary" string="Approve" type="object" invisible="approved_discount == False or status in ['approve','reject'] or user_approved_discount == False or user_approved_payment == True"/>
+                            <button name="action_exception_reject" string="Reject" type="object" invisible="approved_discount == False or status in ['approve','reject'] or user_approved_discount == False or user_approved_payment == True"/>
+
+                            <button name="action_exception_approve" class="btn-primary" string="Approve" type="object" invisible="approved_discount == False or status in ['approve','reject'] or user_approved_discount == True or user_approved_payment == False"/>
+                            <button name="action_exception_reject" string="Reject" type="object" invisible="approved_discount == False or status in ['approve','reject'] or user_approved_discount == True or user_approved_payment == False"/>
+                            
+                            <field name="approver_action_date" />
+
+                            
+                        </tree>
+
+                    </field>
+
+                </page>
+            </xpath>
+            <xpath expr="//header" position="inside">
+                <field name="is_approved" invisible="1"/>
+                <field name="user_approved_discount"  invisible="1"/>
+                <field name="user_approved_payment"  invisible="1"/>
+                
+                
+                <button name="action_request_approved" class="btn-primary" string="Submit For Approval" type="object" invisible="state != 'draft' or  layer == 'two 'or id == False or user_approved_discount == True or user_approved_payment == True or is_approved == False"/>
+                <button name="action_withdraw_request" string="Withdraw Request" type="object" invisible="state != 'waiting_approved' or layer == 'two' or id == False or user_approved_discount == True or user_approved_payment == True"/>
+
+                <button name="action_approved" class="btn-primary" string="Approve" type="object" invisible="is_approved == False or state != 'waiting_approved' or layer == 'two' or id == False or user_approved_discount == False or user_approved_payment == True"/>
+                <button name="action_reject" string="Reject" type="object" invisible="is_approved == False or state != 'waiting_approved' or layer == 'two' or id == False or user_approved_discount == False or user_approved_payment == True"/>
+                
+                <button name="action_approved" class="btn-primary" string="Approve" type="object" invisible="is_approved == False or state != 'waiting_approved' or layer == 'two' or id == False or user_approved_discount == False or user_approved_payment == False"/>
+                <button name="action_reject" string="Reject" type="object" invisible="is_approved == False or state != 'waiting_approved' or layer == 'two' or id == False or user_approved_discount == False or user_approved_payment == False"/>
+                
+
+                
+
+            </xpath>
+            <xpath expr="//header" position="inside">
+                <field name="layer" invisible="1"/>
+            </xpath>
+            <xpath expr="//header/field[@name='state']" position="replace">
+                <field name="state" widget="statusbar" statusbar_visible="draft,waiting_approved,approved,sent,sale"/>
+            </xpath>
+            <xpath expr="//button[@name='action_quotation_send']" position="replace">
+                <button name="action_quotation_send" string="Send by Email" type="object" invisible="state not in ['draft','approved'] or layer == 'one' or id == False" class="btn-primary" data-hotkey="g" context="{'validate_analytic': True}"/>
+            </xpath>
+            <xpath expr="//button[@name='action_confirm'][2]" position="replace">
+                <button name="action_confirm" data-hotkey="v" string="Confirm" type="object" context="{'validate_analytic': True}" invisible="state not in ['draft','approved'] or layer == 'one' or id == False"/>
+            </xpath>
+            <xpath expr="//button[@name='action_quotation_send'][2]" position="replace">
+                <button name="action_quotation_send" type="object" string="Send PRO-FORMA Invoice"
+                    groups="sale.group_proforma_sales"
+                    invisible="state not in  ['approved','sale','done'] or  invoice_count >= 1 or id == False"/>
+                
+            </xpath>
+            <xpath expr="//button[@name='action_quotation_send'][3]" position="replace">
+                <button name="action_quotation_send" type="object" string="Send PRO-FORMA Invoice"
+                    groups="sale.group_proforma_sales"
+                    invisible="state in ['draft','waiting_approved','reject','cancel','approved','sale','done'] or invoice_count >= 1 or id == False" context="{'proforma': True, 'validate_analytic': True}"/>
+            
+            </xpath>
+            <xpath expr="//button[@name='action_cancel']" position="replace">
+                <button name="action_cancel" type="object" string="Cancel" invisible="state not in ['draft', 'sent','sale','approved'] or id == False or layer =='one'" data-hotkey="z"/>
+            </xpath>
+            
+        </field>
+    </record>
+
+
+</odoo>

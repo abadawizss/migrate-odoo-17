@@ -30,5 +30,30 @@
             </field>
         </record>
 
+        <record id="res_config_settings_view_form_approval_freight" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.approval.freight</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="sale.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form//app[@data-string='Sales']" position="inside">
+                <block title="Freight Charges Approval">
+                    <setting>
+                        <field name="activate_freight_charges"/>
+                        <div class="text-muted">
+                            <span>Activate Freight Charges Approval</span><br />
+                            <div class="mt8" invisible="activate_freight_charges ==False">
+                            <label for="activate_freight_charges" string="Discount Approval Authority"/>
+                                <div>
+                                    <field name="user_approval_freight_charges" widget="many2many_tags" force_save="1" required="activate_approval_discount==True"/>
+                                    <field name="user_approval_list_freight_charges" invisible="1"/>
+                                </div>
+                            </div>
+                        </div>
+                    </setting>
+                </block>
+            </xpath>
+            </field>
+        </record>
+
     </data>
 </odoo>

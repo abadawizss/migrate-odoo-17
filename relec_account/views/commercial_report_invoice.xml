@@ -72,12 +72,9 @@
 
                 <div class="page">
                     <h2>
-                        <span
-                            t-if="o.move_type == 'out_invoice' and o.state == 'posted'">Commercial Invoice: </span>
-                        <span
-                            t-if="o.move_type == 'out_invoice' and o.state == 'draft'">Draft Commercial Invoice:</span>
-                        <span
-                            t-if="o.move_type == 'out_invoice' and o.state == 'cancel'">Cancelled Commercial Invoice: </span>
+                        <span t-if="o.move_type == 'out_invoice' and o.state == 'posted'">Commercial Invoice: </span>
+                        <span t-if="o.move_type == 'out_invoice' and o.state == 'draft'">Draft Commercial Invoice:</span>
+                        <span t-if="o.move_type == 'out_invoice' and o.state == 'cancel'">Cancelled Commercial Invoice: </span>
                         <span t-if="o.move_type == 'out_refund'">Credit Note: </span>
                         <span t-if="o.move_type == 'in_refund'">Vendor Credit Note: </span>
                         <span t-if="o.move_type == 'in_invoice'">Vendor Bill: </span>
@@ -87,8 +84,7 @@
                     <div class="row mt8 mb8">
                         <div class="col-auto mw-100 mb-2" name="invoice_date">
                             <strong>Invoice Date:</strong>
-                            <p class="m-0" t-if="o.invoice_date"
-                                t-field="o.invoice_date"/>
+                            <p class="m-0" t-if="o.invoice_date" t-field="o.invoice_date"/>
                         </div>
                         <div class="col-auto mw-100 mb-2" name="exporter_ref">
                             <strong>Exporter's Ref:</strong>
@@ -104,8 +100,7 @@
                         </div>
                         <div class="col-auto mw-100 mb-2" name="carriage_by">
                             <strong>Carriage By</strong>
-                            <p class="m-0" t-if="o.carrier_id"
-                                t-field="o.carrier_id"/>
+                            <p class="m-0" t-if="o.carrier_id" t-field="o.carrier_id"/>
                         </div>
                     </div>
                     <div class="row mt8 mb8">
@@ -115,39 +110,33 @@
                         </div>
                         <div class="col-auto mw-100 mb-2" name="destination_country_id">
                             <strong>Country of Destination:</strong>
-                            <p class="m-0" t-if="o.partner_shipping_id"
-                                t-field="o.partner_shipping_id.country_id"/>
+                            <p class="m-0" t-if="o.partner_shipping_id" t-field="o.partner_shipping_id.country_id"/>
                         </div>
                         <div class="col-auto mw-100 mb-2" name="pre_carrier_receipt_place">
                             <strong>Place of receipt by Pre Carrier:
                             </strong>
-                            <p class="m-0" t-if="o.pre_carrier_receipt_place"
-                                t-field="o.pre_carrier_receipt_place"/>
+                            <p class="m-0" t-if="o.pre_carrier_receipt_place" t-field="o.pre_carrier_receipt_place"/>
                         </div>
                     </div>
                     <div class="row mt8 mb8">
                         <div class="col-auto mw-100 mb-2" name="port_loading">
                             <strong>Port of Loading:</strong>
-                            <p class="m-0" t-if="o.port_loading"
-                                t-field="o.port_loading"/>
+                            <p class="m-0" t-if="o.port_loading" t-field="o.port_loading"/>
                         </div>
                         <div class="col-auto mw-100 mb-2" name="port_discharge">
                             <strong>Port of Discharge:</strong>
-                            <p class="m-0" t-if="o.port_discharge"
-                                t-field="o.port_discharge"/>
+                            <p class="m-0" t-if="o.port_discharge" t-field="o.port_discharge"/>
                         </div>
                         <div class="col-auto mw-100 mb-2" name="invoice_incoterm_id">
                             <strong>Incoterm</strong>
-                            <p class="m-0" t-if="o.invoice_incoterm_id"
-                                t-field="o.invoice_incoterm_id"/>
+                            <p class="m-0" t-if="o.invoice_incoterm_id" t-field="o.invoice_incoterm_id"/>
                             (
                             <span t-field="o.invoice_incoterm_id.code"/>
                             )
                         </div>
                         <div class="col-auto mw-100 mb-2" name="final_destination">
                             <strong>Final Destination:</strong>
-                            <p t-if="o.partner_shipping_id.country_id"
-                                class="m-0" t-field="o.partner_shipping_id.country_id"/>
+                            <p t-if="o.partner_shipping_id.country_id" class="m-0" t-field="o.partner_shipping_id.country_id"/>
                         </div>
                     </div>
 
@@ -201,14 +190,12 @@
                                 <!-- <th name="th_taxes" t-attf-class="text-left
                                     {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"><span>Taxes</span></th> -->
                                 <th name="th_subtotal" class="text-right">
-                                    <span
-                                        groups="account.group_show_line_subtotals_tax_excluded">
+                                    <span groups="account.group_show_line_subtotals_tax_excluded">
                                         Amount (
                                         <span t-field="o.currency_id"/>
                                         )
                                     </span>
-                                    <span
-                                        groups="account.group_show_line_subtotals_tax_included">Total Price</span>
+                                    <span groups="account.group_show_line_subtotals_tax_included">Total Price</span>
                                 </th>
                             </tr>
                         </thead>
@@ -227,15 +214,14 @@
                                     <span t-field="line.name"/>
                                 </td>
                                  <td style="text-align:center;"> <!--HSN -->
-                                                                         <span t-field="line.product_id.l10n_in_hsn_code"/>
-
-                                    <!--                                    <span t-field="line.product_id"/>-->
+                                    <span t-field="line.product_id.l10n_in_hsn_code"/>
+                                    <!-- <span t-field="line.product_id"/> -->
                                 </td>
                                 <td style="text-align:center;"> <!--DWB -->
-                                    <!--                                    <span t-field="line.product_id"/>-->
+                                    <!-- <span t-field="line.product_id"/> -->
                                 </td>
                                 <td style="text-align:center;"> <!--DG -->
-                                    <!--                                    <span t-field="line.product_id"/>-->
+                                    <!-- <span t-field="line.product_id"/> -->
                                 </td>
                                 <td style="text-align:center;"> <!--Qty -->
                                     <span t-field="line.quantity"/>
@@ -255,7 +241,7 @@
                                 <t t-set="subtotal" t-value="subtotal + (line.quantity*line.price_unit)"/>
                                 <td style="text-align:center;"> <!--Amount -->
                                     <span t-field="line.price_subtotal"/>
-                                    <!--                                    <t t-esc="subtotal"/>-->
+                                <!-- <t t-esc="subtotal"/> -->
                                 </td>
                             </tr>
                         </t>
@@ -445,7 +431,6 @@
 
 <!--                                </t>-->
 <!--                            </t>-->
-
                         </tbody>
                     </table>
 
@@ -482,8 +467,7 @@
                                             <strong>Total</strong>
                                         </td>
                                         <td class="text-right">
-                                            <span class="text-nowrap"
-                                                t-field="o.amount_total"/>
+                                            <span class="text-nowrap" t-field="o.amount_total"/>
                                         </td>
                                     </tr>
                                 </table>
@@ -494,7 +478,7 @@
                         Please use the following communication for your
                         payment :
                         <b>
-<!--                            <span t-field="o.invoice_payment_ref"/>-->
+                           <!-- <span t-field="o.invoice_payment_ref"/> -->
                         </b>
                     </p>
                     <p t-if="o.narration" name="comment">
@@ -517,8 +501,7 @@
                         </div>
                         <div t-if="o.print_signature" class="mr4"
                             name="stamp_signature">
-                            <img
-                                t-if="o.user_id and o.user_id.signature_image"
+                            <img t-if="o.user_id and o.user_id.signature_image"
                                 t-att-src="image_data_uri(o.user_id.signature_image)"
                                 style="max-height: 3cm; max-width: 6cm;"/>
                         </div>
@@ -538,13 +521,11 @@
                             <i
                                 class="oe_form_field text-right oe_payment_label">
                                 Paid on
-                                <t t-esc="payment_vals['date']"
-                                    t-options='{"widget": "date"}'/>
+                                <t t-esc="payment_vals['date']" t-options='{"widget": "date"}'/>
                             </i>
                         </td>
                         <td class="text-right">
-                            <span t-esc="payment_vals['amount']"
-                                t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                            <span t-esc="payment_vals['amount']" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
                         </td>
                     </tr>
                 </t>
@@ -567,7 +548,7 @@
                     <t t-set="lang"
                         t-value="o.invoice_user_id.sudo().lang if o.move_type in ('in_invoice', 'in_refund') else o.partner_id.lang"/>
                     <t
-                        t-call="relec_account.commercial_report_invoice_document"
+                        t-call="relec_account.commercial_report_invoice_document" 
                         t-lang="lang"/>
                 </t>
             </t>

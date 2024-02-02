@@ -10,9 +10,7 @@ class CrmLeadLost(models.TransientModel):
     _description = 'Get Disqualification Reason'
 
     disqualify_reason_id = fields.Many2one('zen.crm.disqualify.reason', string='Disqualification Reason')
-    disqualify_feedback = fields.Html(
-        'Closing Note', sanitize=True
-    )
+    disqualify_feedback = fields.Html('Closing Note', sanitize=True)
 
     def action_disqualify_reason_apply(self):
         self.ensure_one()

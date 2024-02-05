@@ -8,8 +8,10 @@
             <xpath expr="//field[@name='overtime_hours']" position="after">
                 <field name="check_in_lat" optional="show"/>
                 <field name="check_out_lat" optional="show"/>
+                <field name="geotag" optional="hide"/>
                 <field name="check_in_long" optional="show"/>
                 <field name="check_out_long" optional="show"/>
+                <field name="out_geotag" optional="hide"/>
                 <field name="address" optional="show"/>
                 <field name="out_address" optional="show"/>
                 <field name="location_url" widget="url" optional="show"/>
@@ -28,10 +30,12 @@
             <xpath expr="//field[@name='check_out']" position="after">
                 <field name="check_in_lat"/>
                 <field name="check_out_lat"/>
+                <field name="geotag"/>
                 <field name="check_in_long"/>
                 <field name="check_out_long"/>
+                <field name="out_geotag"/>
                 <field name="address"/>
-                <field name="out_address" optional="show"/>
+                <field name="out_address"/>
                 <field name="location_url" widget="url"/>
                 <field name="out_location_url" widget="url"/>
                 <field name="work_area_status_in"/>

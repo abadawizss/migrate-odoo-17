@@ -24,7 +24,7 @@ odoo.define('zen_sale_project.my_widget', function (require) {
 
         console.log("Task ID:", task_id);
 
-//        var task_id = 9;  // Replace with the ID of the project task that you want to update
+        // var task_id = 9;  // Replace with the ID of the project task that you want to update
         console.log("Task ID:", task_id);
         var stage_id = 3;  // Replace with the ID of the stage that you want to set for the project task
 

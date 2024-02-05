@@ -1,5 +1,6 @@
 from odoo.tests.common import TransactionCase
 
+
 class TestSaleOrder(TransactionCase):
 
     def test_create_project_and_tasks(self):

@@ -11,7 +11,7 @@
                     <attribute name="widget">statusbar</attribute>
                 </xpath>
                 <xpath expr="//header" position="inside">
-                    <!-- <button name="approve_task" string="Approve" type="object" invisible="stage_id.name == 'Drawing Prepa --><!-- Drawing Preparation" -->
+                    <!-- <button name="approve_task" string="Approve" type="object"--><!-- Drawing Preparation" -->
                     <button name="approve_task" string="Approve" type="object"/>
                 </xpath>
             </field>

@@ -8,6 +8,7 @@
             <xpath expr="//field[@name='company_id']" position="after">
                 <field name="lat"/>
                 <field name="long"/>
+                <field name="geotag"/>
                 <field name="address"/>
             </xpath>
         </field>
@@ -21,6 +22,7 @@
             <xpath expr="//field[@name='company_id']" position="after">
                 <field name="lat"/>
                 <field name="long"/>
+                <field name="geotag"/>
                 <field name="address"/>
             </xpath>
         </field>

@@ -6,12 +6,12 @@
         <field name="inherit_id" ref="hr_attendance.view_attendance_tree"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='overtime_hours']" position="after">
-                <field name="check_in_lat" optional="show"/>
-                <field name="check_out_lat" optional="show"/>
-                <field name="geotag" optional="hide"/>
-                <field name="check_in_long" optional="show"/>
-                <field name="check_out_long" optional="show"/>
-                <field name="out_geotag" optional="hide"/>
+                <field name="check_in_lat" optional="hide"/>
+                <field name="check_out_lat" optional="hide"/>
+                <field name="geotag" optional="show"/>
+                <field name="check_in_long" optional="hide"/>
+                <field name="check_out_long" optional="hide"/>
+                <field name="out_geotag" optional="show"/>
                 <field name="address" optional="show"/>
                 <field name="out_address" optional="show"/>
                 <field name="location_url" widget="url" optional="show"/>
@@ -28,11 +28,11 @@
         <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='check_out']" position="after">
-                <field name="check_in_lat"/>
-                <field name="check_out_lat"/>
+                <field name="check_in_lat" invisible="1"/>
+                <field name="check_out_lat" invisible="1"/>
                 <field name="geotag"/>
-                <field name="check_in_long"/>
-                <field name="check_out_long"/>
+                <field name="check_in_long" invisible="1"/>
+                <field name="check_out_long" invisible="1"/>
                 <field name="out_geotag"/>
                 <field name="address"/>
                 <field name="out_address"/>

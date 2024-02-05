@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- project_portal_templates.xml -->
+        <template id="assets_frontend" name="My Assets Frontend" inherit_id="web.assets_frontend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/zen_sale_project/static/src/js/my_script.js"></script>
+            </xpath>
+        </template>
+
+        <!-- Define the new portal page -->
+        <!-- <record id="new_portal_page" model="ir.ui.view">
+            <field name="name">New Portal Page</field>
+            <field name="model">res.partner</field>
+            <field name="type">qweb</field>
+            <field name="arch" type="xml">
+                <page name="new_portal_page">
+                    &lt;!&ndash; Add content to the page &ndash;&gt;
+                    <h1>New Portal Page</h1>
+                    <p>Welcome to the new portal page!</p>
+                </page>
+            </field>
+        </record> -->
+
+        <!-- Define the new portal menu item -->
+        <!-- <record id="new_portal_menu" model="website.menu">
+           <field name="name">New Portal Menu</field>
+           <field name="parent_id" ref="website.main_menu"/>
+           <field name="website_id" eval="True"/>
+           <field name="url">/new_portal_page</field>
+        </record> -->
+
+    </data>
+</odoo>

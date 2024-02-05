@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="project_task_inherit_view">
+            <field name="name">project.task.form.inherit</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header//field[@name='stage_id']" position="attributes">
+                    <attribute name="statusbar_visible">Drawing Preparation</attribute>
+                    <attribute name="widget">statusbar</attribute>
+                </xpath>
+                <xpath expr="//header" position="inside">
+                    <!-- <button name="approve_task" string="Approve" type="object" invisible="stage_id.name == 'Drawing Prepa --><!-- Drawing Preparation" -->
+                    <button name="approve_task" string="Approve" type="object"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

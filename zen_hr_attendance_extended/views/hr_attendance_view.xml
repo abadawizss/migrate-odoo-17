@@ -30,8 +30,8 @@
         <field name="arch" type="xml">
             <xpath expr="//sheet" position="before">
                 <header>
-                    <button name="approve_attendance" invisible="state in ['waiting_to_approve']" groups="hr_attendance.group_hr_attendance_manager" type="object" string="Approve" data-hotkey="w"/>
-                    <button name="reject_attendance" invisible="state in ['waiting_to_approve']" groups="hr_attendance.group_hr_attendance_manager" type="object" string="Reject" data-hotkey="w"/>
+                    <button name="approve_attendance" invisible="state in ['approved','rejected']" groups="hr_attendance.group_hr_attendance_manager" type="object" string="Approve" data-hotkey="w"/>
+                    <button name="reject_attendance" invisible="state in ['approved','rejected']" groups="hr_attendance.group_hr_attendance_manager" type="object" string="Reject" data-hotkey="w"/>
                     <field name="state" widget="statusbar" statusbar_visible="waiting_to_approve,approved"/>
                 </header>
             </xpath>

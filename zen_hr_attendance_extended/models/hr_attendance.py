@@ -6,6 +6,13 @@ from geopy.exc import GeocoderTimedOut
 class HrAttendance(models.Model):
     _inherit = 'hr.attendance'
 
+    ATTENDANCE_STATE = [
+        ('waiting_to_approve', "Waiting To Approve"),
+        ('approved', "Approved"),
+        ('rejected', "Rejected")
+    ]
+
+    state = fields.Selection(selection=ATTENDANCE_STATE, string="Status", readonly=True, copy=False, index=True, default='waiting_to_approve')
     check_in_lat = fields.Float(string="Check in Lattitude", default=0.0, digits=(10, 7), readonly=True)
     check_out_lat = fields.Float(string="Check out Lattitude", default=0.0, digits=(10, 7), readonly=True)
     check_in_long = fields.Float(string="Check in Longitude", default=0.0, digits=(10, 7), readonly=True)
@@ -55,3 +62,9 @@ class HrAttendance(models.Model):
                         rec.out_location_url = f"https://www.google.com/maps/search/?api=1&query={rec.check_out_lat},{rec.check_out_long}"
                 except GeocoderTimedOut:
                     pass
+
+    def approve_attendance(self):
+        return self.write({'state': 'approved'})
+
+    def reject_attendance(self):
+        return self.write({'state': 'rejected'})

@@ -18,6 +18,7 @@
                 <field name="out_location_url" widget="url" optional="show"/>
                 <field name="work_area_status_in" optional="hide"/>
                 <field name="work_area_status_out" optional="hide"/>
+                <field name="state" optional="hide"/>
             </xpath>
         </field>
     </record>
@@ -27,6 +28,13 @@
         <field name="model">hr.attendance</field>
         <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form"/>
         <field name="arch" type="xml">
+            <xpath expr="//sheet" position="before">
+                <header>
+                    <button name="approve_attendance" invisible="state in ['waiting_to_approve']" groups="hr_attendance.group_hr_attendance_manager" type="object" string="Approve" data-hotkey="w"/>
+                    <button name="reject_attendance" invisible="state in ['waiting_to_approve']" groups="hr_attendance.group_hr_attendance_manager" type="object" string="Reject" data-hotkey="w"/>
+                    <field name="state" widget="statusbar" statusbar_visible="waiting_to_approve,approved"/>
+                </header>
+            </xpath>
             <xpath expr="//field[@name='check_out']" position="after">
                 <field name="check_in_lat" invisible="1"/>
                 <field name="check_out_lat" invisible="1"/>

@@ -10,7 +10,7 @@ class ThreadController(http.Controller):
     def mail_message_post(self,thread_model, thread_id, post_data, **kwargs):
         if 'body' in post_data:
             if post_data['message_type'] == 'comment':
-                if thread_model == 'crm.lead':   
+                if thread_model == 'crm.lead':
                     active_chatter_in_crm = request.env['ir.config_parameter'].sudo().get_param('zen_mail_message.active_chatter_in_crm')
                     if active_chatter_in_crm:
                         body_email_old = post_data['body']
@@ -29,7 +29,7 @@ class ThreadController(http.Controller):
                                     table += f'<li>{partner_info["name"]} &lt;{partner_info["email"]}&gt;</li>'
                                 table += '</ul>'
                                 post_data['body'] = markupsafe.Markup(str(modified_body_email) + '\n' + table)
-                if thread_model == 'sale.order':   
+                if thread_model == 'sale.order':
                     active_chatter_in_crm = request.env['ir.config_parameter'].sudo().get_param('zen_mail_message.active_chatter_in_sale')
                     if active_chatter_in_crm:
                         body_email_old = post_data['body']
@@ -48,7 +48,7 @@ class ThreadController(http.Controller):
                                     table += f'<li>{partner_info["name"]} &lt;{partner_info["email"]}&gt;</li>'
                                 table += '</ul>'
                                 post_data['body'] = markupsafe.Markup(str(modified_body_email) + '\n' + table)
-                if thread_model == 'purchase.order':   
+                if thread_model == 'purchase.order':
                     active_chatter_in_crm = request.env['ir.config_parameter'].sudo().get_param('zen_mail_message.active_chatter_in_purchase')
                     if active_chatter_in_crm:
                         body_email_old = post_data['body']
